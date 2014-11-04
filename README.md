@@ -1,4 +1,4 @@
 BP2014projekat
 ==============
 
-Aplikacija za vođenje projekata sa mogućnošću planiranja timskih sastanaka pravljena u okviru projektnog zadatka za kurs Baze podataka.
+Faculty project for the Databases course - Application for project management and meetings scheduling.

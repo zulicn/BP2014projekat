@@ -44,7 +44,7 @@
             android:typeface="serif" />
 
         <EditText
-            android:id="@+id/editText0"
+            android:id="@+id/fullNameRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -59,7 +59,7 @@
         </EditText>
         
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/userNameRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -72,7 +72,7 @@
         </EditText>
 
          <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/passwordRegister"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -84,7 +84,7 @@
             android:inputType="textPassword" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/buttonRegister"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:background="#60CEFD"
@@ -93,7 +93,9 @@
             android:layout_marginLeft="15dp"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:text="@string/reg" />
+            android:text="@string/reg" 
+            android:clickable="true"
+    		android:onClick="Registering"/>
 		
         <TextView
             android:id="@+id/textView2"

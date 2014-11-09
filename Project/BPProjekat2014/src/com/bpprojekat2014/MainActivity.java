@@ -40,7 +40,7 @@ public class MainActivity extends Activity {
 		{
 		    Intent intent;
 		    // TBD aBd samo izbrisati "/*KlasaOdActivitijaNakonLoginaNOTIMPLEMENTET*/RegisterActivity" i staviti novu
-		    // klasu koju vec neko napravi ..
+		    // klasu koju vec neko napravi .. sad za sad stoji ovo RegisterActivity da ne prikazuje errore
 		    intent = new Intent(this, /*KlasaOdActivitijaNakonLoginaNOTIMPLEMENTET*/RegisterActivity.class);
 		    startActivity(intent);
 		}
@@ -60,11 +60,13 @@ public class MainActivity extends Activity {
 		password = (EditText) view.findViewById(R.id.passwordLogin);
 		
 		/* TBD aBd
-		if(provjera sa bazom podataka){
+		if(uspjeo login){
 			user = new User(username.getText().toString());
 			// TBD dodati neki text u gornjem desnom uglu gdje ce pisati ime usera
 			// dodati u manifestu jer ce tako uvijek postojati sta god da korisnik radio na aplikaciji
 			// Slicno kao onaj zeleni krugic "Sign in"
+			
+			// Koristiti user.getFullName() da se postavi tekst;
 			return true;
 		}
 		*/

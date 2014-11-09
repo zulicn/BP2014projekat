@@ -7,10 +7,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import com.bpprojekat2014.RegisterActivity;
+import com.bpprojekat2014.classes.User;
 
 public class MainActivity extends Activity {
-
+	
+	User user;
+	static EditText username;
+	static EditText password;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +32,47 @@ public class MainActivity extends Activity {
 	    intent = new Intent(this, RegisterActivity.class);
 	    startActivity(intent);
 	}
+	
+	// Ime klase od activitiya koji se prikazuje nakon logina!
+	// Ova metoda prvo provjeri da li se može logirati korisnik. Ako može prikaže mu odgovarajuci activity
+	public void Signing(View view) {
+		if(TrySignIn(view) == true)
+		{
+		    Intent intent;
+		    // TBD aBd samo izbrisati "/*KlasaOdActivitijaNakonLoginaNOTIMPLEMENTET*/RegisterActivity" i staviti novu
+		    // klasu koju vec neko napravi ..
+		    intent = new Intent(this, /*KlasaOdActivitijaNakonLoginaNOTIMPLEMENTET*/RegisterActivity.class);
+		    startActivity(intent);
+		}
+		else
+		{
+			// Ona mala porukica na dnu ekrana javlja
+			Toast message = Toast.makeText(this /*Ili getActivity() ili this.getApplicationContext()*/,
+					"Pogrešni login podaci!", Toast.LENGTH_LONG);
+			message.show();
+		}
+	}
+	
+	// TBD aBd
+	private boolean TrySignIn(View view){
+		// Dohvatanje unesenih korisnickih podataka 
+		username = (EditText) view.findViewById(R.id.userNameLogin);
+		password = (EditText) view.findViewById(R.id.passwordLogin);
+		
+		/* TBD aBd
+		if(provjera sa bazom podataka){
+			user = new User(username.getText().toString());
+			// TBD dodati neki text u gornjem desnom uglu gdje ce pisati ime usera
+			// dodati u manifestu jer ce tako uvijek postojati sta god da korisnik radio na aplikaciji
+			// Slicno kao onaj zeleni krugic "Sign in"
+			return true;
+		}
+		*/
+		
+		// sad za sad nek vraca false
+		return false;
+	}
+	
 	
 
 	

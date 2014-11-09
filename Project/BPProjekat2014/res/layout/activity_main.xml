@@ -44,7 +44,7 @@
             android:typeface="serif" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/userNameLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -59,7 +59,7 @@
         </EditText>
 
          <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/passwordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -80,7 +80,9 @@
             android:layout_marginLeft="15dp"
             android:textColor="#fff"
             android:textStyle="bold"
-            android:text="@string/log_in" />
+            android:text="@string/log_in" 
+            android:clickable="true"
+    		android:onClick="Signing"/>
         
         <TextView
             android:id="@+id/textView2"

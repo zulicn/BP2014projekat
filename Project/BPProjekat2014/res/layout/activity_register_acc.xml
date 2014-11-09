@@ -1,7 +1,7 @@
  <LinearLayout
      xmlns:android="http://schemas.android.com/apk/res/android" 
     xmlns:tools="http://schemas.android.com/tools"
- tools:context=".MainActivity" 
+ tools:context=".RegisterActivity" 
   android:layout_width="wrap_content"
   android:layout_height="wrap_content"
   android:layout_alignParentBottom="true"
@@ -9,7 +9,8 @@
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
   android:background="@drawable/bg1"     
-  android:orientation="vertical" >
+  android:orientation="vertical" 
+  android:id="@+id/registerActivity">
 
         <TextView
             android:id="@+id/textView1"
@@ -103,7 +104,9 @@
             android:text="@string/already"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium" />        
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:clickable="true"
+    		android:onClick="showLoginView" />        
             
     </LinearLayout>
 

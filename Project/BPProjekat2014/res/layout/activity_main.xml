@@ -10,7 +10,7 @@
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
   android:background="@drawable/bg1"     
-  android:orientation="vertical" >
+  android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView1"
@@ -94,7 +94,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
 		
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -102,6 +102,8 @@
             android:text="@string/register"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium" />        
+            android:textAppearance="?android:attr/textAppearanceMedium" 
+            android:clickable="true"
+    		android:onClick="showRegistrationView"/>        
             
     </LinearLayout>

@@ -1,0 +1,107 @@
+
+ <LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:tools="http://schemas.android.com/tools"
+ tools:context=".MainActivity" 
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_alignParentBottom="true"
+  android:layout_alignParentLeft="true"
+  android:layout_alignParentRight="true"
+  android:layout_alignParentTop="true"
+  android:background="@drawable/bg1"     
+  android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/log_in"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+<View                             
+   android:layout_width="fill_parent"
+   android:layout_height="2dp" 
+   android:layout_marginBottom="10dp"      
+   android:background="#C0C0C0"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="@string/ime_aplikacije"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#A2F368"
+            android:textSize="25sp"
+            android:typeface="serif" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/user"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#fff"
+            android:textSize="20sp"
+            android:inputType="text" >
+            <requestFocus />
+        </EditText>
+
+         <EditText
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/pass"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"     
+             android:textColor="#fff"
+             android:textSize="20sp"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="#60CEFD"
+             android:layout_marginTop="20dp"
+             android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:text="@string/log_in" />
+        
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:text="@string/forgot"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+		
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/register"
+            android:textColor="#ffffff"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceMedium" />        
+            
+    </LinearLayout>

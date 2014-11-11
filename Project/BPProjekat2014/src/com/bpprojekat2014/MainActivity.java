@@ -132,7 +132,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	    	
 	    }
 	  
-	
+	    public void showRegistrationView(View v) {
+		    Intent intent;
+		    intent = new Intent(this, RegisterActivity.class);
+		    startActivity(intent);
+		}
 
 	
 

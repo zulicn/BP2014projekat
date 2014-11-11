@@ -3,6 +3,7 @@
     package="com.bpprojekat2014"
     android:versionCode="1"
     android:versionName="1.0" >
+    
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -16,7 +17,9 @@
         android:allowBackup="true"
         android:icon="@drawable/login"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:name="com.bpprojekat2014.classes.AppController"
+        >"
         <activity
             android:name=".MainActivity"
             android:label="Sign in" >
@@ -26,8 +29,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:name=".HomeActivity"
+             android:label="User projects"
+           >
         </activity>
 
         <activity

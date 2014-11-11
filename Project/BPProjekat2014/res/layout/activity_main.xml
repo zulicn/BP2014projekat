@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
  tools:context=".MainActivity" 
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_alignParentBottom="true"
+  android:layout_height="fill_parent"
+ 
   android:layout_alignParentLeft="true"
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
-  android:background="@drawable/bg1"     
+  android:background="@color/black"     
   android:orientation="vertical">
 
         <TextView
@@ -82,7 +82,7 @@
             android:textStyle="bold"
             android:text="@string/log_in" 
             android:clickable="true"
-    		android:onClick="Signing"/>
+    		/>
         
         <TextView
             android:id="@+id/textView2"

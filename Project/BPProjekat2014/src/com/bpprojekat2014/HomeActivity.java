@@ -79,10 +79,10 @@ public class HomeActivity extends Activity {
 		 txtResponse = (TextView) findViewById(R.id.txtResponse);
 	       
 
-		 
+		 /*
 		 Intent intent = new Intent();
 		 intent.putExtra("myString", "this is your string"); 
-		 startActivity(intent);
+		 startActivity(intent);*/
 	 //za tabove
 		 mTitle = getTitle();
 		 mDrawerTitle = getTitle();
@@ -279,7 +279,10 @@ public class HomeActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
         case 0:
+            Bundle bundle = new Bundle();
+            bundle.putString("myString", "this is your string");
             fragment = new HomeFragment();
+            fragment.setArguments(bundle);
             break;
         /*case 1:
             fragment = new FindPeopleFragment();

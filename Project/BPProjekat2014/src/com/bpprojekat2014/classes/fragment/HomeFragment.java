@@ -15,7 +15,9 @@ public class HomeFragment extends Fragment{
             Bundle savedInstanceState) {
   
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-		String strtext=getActivity().getIntent().getStringExtra("myString");
+		//String strtext = getActivity().getIntent().getStringExtra("myString");
+		String strtext = getArguments().getString("myString");
+		
 		TextView sessionTitle = (TextView) rootView.findViewById(R.id.session1);
 	    sessionTitle.setText(strtext);
 		

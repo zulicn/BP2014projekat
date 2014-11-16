@@ -6,11 +6,11 @@
      <color name="red">#f00</color>
      <color name="black">#000000</color>
      <color name="list_divider">#000000</color>
-     <color name="list_background">#000000</color>
-     <color name="list_item_title">#000000</color>
-     <color name="counter_text_color">#000000</color>
-     <color name="counter_text_bg">#000000</color>
-     <color name="list_background_pressed">#000000</color>
+     <color name="list_background">#808080</color>
+     <color name="list_item_title">#FFFFFF</color>
+     <color name="counter_text_color">#FFFFFF</color>
+     <color name="counter_text_bg">#60CEFD</color>
+     <color name="list_background_pressed">#4CC552</color>
      
 
 </resources>

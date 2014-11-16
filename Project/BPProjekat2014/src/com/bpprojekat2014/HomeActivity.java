@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bpprojekat2014.classes.AppController;
+import com.bpprojekat2014.classes.FragmentPageAdapter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -27,13 +28,25 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class HomeActivity extends Activity {
+import android.app.ActionBar;  
+import android.app.ActionBar.Tab;  
+import android.app.FragmentTransaction;  
+import android.os.Bundle;  
+import android.support.v4.app.FragmentActivity;  
+import android.support.v4.view.ViewPager;  
+
+public class HomeActivity extends FragmentActivity implements ActionBar.TabListener {
 	
 	private String TAG="JSON_TAG_PROJECTS";
 	private String username;
 	private String key;
 	private String  jsonResponse;
 	private TextView txtResponse;
+	
+	ActionBar actionbar;  
+    ViewPager viewpager;  
+    FragmentPageAdapter ft; 
+    
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,7 +54,27 @@ public class HomeActivity extends Activity {
 		makeProjectsRequest();
 		 txtResponse = (TextView) findViewById(R.id.txtResponse);
 	       
-	 
+		 viewpager = (ViewPager) findViewById(R.id.pager);  
+         ft = new FragmentPageAdapter(getSupportFragmentManager());  
+         actionbar = getActionBar();  
+         viewpager.setAdapter(ft);  
+         actionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);  
+         actionbar.addTab(actionbar.newTab().setText("Java").setTabListener(this));  
+         actionbar.addTab(actionbar.newTab().setText("Php").setTabListener(this));  
+         viewpager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {  
+              @Override  
+              public void onPageSelected(int arg0) {  
+              actionbar.setSelectedNavigationItem(arg0);  
+              }  
+              @Override  
+              public void onPageScrolled(int arg0, float arg1, int arg2) {  
+                   // TODO Auto-generated method stub  
+              }  
+              @Override  
+              public void onPageScrollStateChanged(int arg0) {  
+                   // TODO Auto-generated method stub  
+              }  
+         });  
 	} 
 	
 	public void makeProjectsRequest(){
@@ -117,6 +150,24 @@ public class HomeActivity extends Activity {
 		 
 		// Adding request to request queue
 		AppController.getInstance().addToRequestQueue(req, tag_json_arry);
+		
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
+		viewpager.setCurrentItem(tab.getPosition()); 
+	}
+
+	@Override
+	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+		// TODO Auto-generated method stub
 		
 	}
 	

@@ -9,7 +9,7 @@
   android:layout_alignParentLeft="true"
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
-  android:background="@color/black"     
+  android:background="@drawable/bg1"     
   android:orientation="vertical">
 
         <TextView
@@ -93,8 +93,10 @@
             android:text="@string/forgot"
             android:textColor="#ffffff"
             android:textStyle="bold"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-		
+            android:textAppearance="?android:attr/textAppearanceMedium" 
+            android:clickable="true"
+    		android:onClick="showHomeView"/>   
+    				
         <TextView
             android:id="@+id/register"
             android:layout_width="match_parent"

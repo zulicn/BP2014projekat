@@ -138,7 +138,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		    startActivity(intent);
 		}
 
-	
+	    public void showHomeView(View v) {
+		    Intent intent;
+		    intent = new Intent(this, HomeActivity.class);
+		    startActivity(intent);
+		}
 
 	
 	

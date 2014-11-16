@@ -35,6 +35,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends Activity implements OnClickListener {
+
+	/*
+	@Override
+	public void onClick(View v) {
+			
+	}*/
 	
 	User user;
 	static EditText username;

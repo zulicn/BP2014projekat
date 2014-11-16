@@ -61,7 +61,7 @@ public final class R {
         public static final int slikalogo=0x7f02000f;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0013;
+        public static final int action_settings=0x7f0a0014;
         public static final int buttonLogin=0x7f0a0008;
         public static final int buttonRegister=0x7f0a000f;
         public static final int counter=0x7f0a0012;
@@ -74,6 +74,7 @@ public final class R {
         public static final int passwordRegister=0x7f0a000e;
         public static final int register=0x7f0a000a;
         public static final int registerActivity=0x7f0a000b;
+        public static final int session1=0x7f0a0013;
         public static final int textView1=0x7f0a0004;
         public static final int textView2=0x7f0a0009;
         public static final int textView4=0x7f0a0005;

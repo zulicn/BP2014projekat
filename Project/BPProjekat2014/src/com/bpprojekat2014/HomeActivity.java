@@ -20,12 +20,14 @@ import com.bpprojekat2014.classes.model.NavDrawerItem;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentTransaction;
 import android.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -76,6 +78,11 @@ public class HomeActivity extends Activity {
 		makeProjectsRequest();
 		 txtResponse = (TextView) findViewById(R.id.txtResponse);
 	       
+
+		 
+		 Intent intent = new Intent();
+		 intent.putExtra("myString", "this is your string"); 
+		 startActivity(intent);
 	 //za tabove
 		 mTitle = getTitle();
 		 mDrawerTitle = getTitle();

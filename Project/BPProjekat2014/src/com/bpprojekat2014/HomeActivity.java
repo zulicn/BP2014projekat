@@ -75,9 +75,10 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		/*
 		makeProjectsRequest();
 		 txtResponse = (TextView) findViewById(R.id.txtResponse);
-	       
+	     */  
 	 //za tabove
 		 mTitle = getTitle();
 		 mDrawerTitle = getTitle();
@@ -198,7 +199,7 @@ public class HomeActivity extends Activity {
 		      
 		                             }}
 		      
-		                             txtResponse.setText(jsonResponse);
+		                             //txtResponse.setText(jsonResponse);
 		      
 		                         } catch (JSONException e) {
 		                             e.printStackTrace();
@@ -276,8 +277,9 @@ public class HomeActivity extends Activity {
         Fragment fragment = null;
         switch (position) {
         case 0:
+        	makeProjectsRequest();
             Bundle bundle = new Bundle();
-            bundle.putString("myString", username);
+            bundle.putString("myString", jsonResponse);
             fragment = new HomeFragment();
             fragment.setArguments(bundle);
             break;

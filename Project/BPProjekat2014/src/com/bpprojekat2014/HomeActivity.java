@@ -1,7 +1,9 @@
 package com.bpprojekat2014;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.android.volley.Request.Method;
@@ -16,6 +18,7 @@ import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import android.app.Fragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
 import com.bpprojekat2014.classes.model.NavDrawerItem;
+import com.bpprojekat2014.classes.Project;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -45,10 +48,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.bpprojekat2014.R;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class HomeActivity extends Activity {
 	
 	private String TAG="JSON_TAG_PROJECTS";
+	private String TAG2="JSON_TAG_GPROJECTS";
 	private String username;
 	private String key;
 	private String  jsonResponse;
@@ -153,7 +159,7 @@ public class HomeActivity extends Activity {
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 	    username=pref.getString("username",null);
 		key=pref.getString("key",null);
-		String url = String.format("https://projectmng.herokuapp.com/projects.json?username=%1$s&key=%2$s",username,key);
+		String url = String.format("http://projectmng.herokuapp.com/projects/all.json?username=%1$s&key=%2$s",username,key);
 		String tag_json_arry = "json_array_req";
 		final ProgressDialog pDialog = new ProgressDialog(this);
 		pDialog.setMessage("Loading...");
@@ -168,7 +174,15 @@ public class HomeActivity extends Activity {
 		                    	 try {
 		                             // Parsing json array response
 		                             // loop through each json object
+		                    		
 		                             jsonResponse = "";
+		                             String jsonResponse2=" ";
+		                             jsonResponse2=response.toString();
+		                             GsonBuilder gsonBuilder = new GsonBuilder();
+                                     Gson gson = gsonBuilder.create();
+                                     List<Project> projects = new ArrayList<Project>();
+                                     projects = Arrays.asList(gson.fromJson(jsonResponse2, Project[].class));
+                                     for(int j=0;j<projects.size();j++){ Log.d(TAG2, projects.get(j).toString());}
 		                             for (int i = 0; i < response.length(); i++) {
 		      
 		                                 JSONObject project = (JSONObject) response.get(i);
@@ -198,7 +212,7 @@ public class HomeActivity extends Activity {
 		                                
 		      
 		                             }}
-		      
+		                             Log.d(TAG, jsonResponse);
 		                             //txtResponse.setText(jsonResponse);
 		      
 		                         } catch (JSONException e) {

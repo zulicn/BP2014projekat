@@ -153,7 +153,7 @@ public class HomeActivity extends Activity {
 	        }
 
 	} 
-	
+	//this retreives all projects of user, no meter if they are archived 
 	public void makeProjectsRequest(){
 	
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
@@ -174,22 +174,24 @@ public class HomeActivity extends Activity {
 		                    	 try {
 		                             // Parsing json array response
 		                             // loop through each json object
-		                    		
+		                    		// ovdje sam uspjela da projekte mapriam preko GSona u nas model Project (klasu)
+		                    		 //stavila sma samo naziv i desription al mogu i ostali podaci, ali
+		                    		 // ne znam jos kako sad mapirat aktivnosti, jer su to sad liste objekata unutar objekta
 		                             jsonResponse = "";
 		                             String jsonResponse2=" ";
 		                             jsonResponse2=response.toString();
 		                             GsonBuilder gsonBuilder = new GsonBuilder();
                                      Gson gson = gsonBuilder.create();
                                      List<Project> projects = new ArrayList<Project>();
-                                     projects = Arrays.asList(gson.fromJson(jsonResponse2, Project[].class));
-                                     for(int j=0;j<projects.size();j++){ Log.d(TAG2, projects.get(j).toString());}
+                                     projects = Arrays.asList(gson.fromJson(jsonResponse2, Project[].class));// ovdje mapira u klasu Projekt, sad ce ova lsiat sadrzavat projekte
+                                     for(int j=0;j<projects.size();j++){ Log.d(TAG2, projects.get(j).toString());}// ovo samo ispise naziv i opis u logCat da vidim radil
 		                             for (int i = 0; i < response.length(); i++) {
 		      
 		                                 JSONObject project = (JSONObject) response.get(i);
 		                                 String name = project.getString("name");
 		                                 String description = project.getString("short_description");
 		                                 jsonResponse += "Name: " + name + "\n\n";
-		                                 jsonResponse += "Project description: " + description + "\n\n";
+		                                 jsonResponse += "Project description: " + description + "\n\n";// ovo sam ostavila kao prije, ovaj jsonresponse smao ono redom ispis ekao string
 		                                 jsonResponse+="Activities:\n\n";
 		                                 JSONArray activities = project.getJSONArray("activities");
 		                                 for (int j = 0; j < activities.length(); j++) {

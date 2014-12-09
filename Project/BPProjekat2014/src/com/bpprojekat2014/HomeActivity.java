@@ -14,11 +14,12 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.bpprojekat2014.classes.AppController;
+import com.bpprojekat2014.classes.Project;
 import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import android.app.Fragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
 import com.bpprojekat2014.classes.model.NavDrawerItem;
-import com.bpprojekat2014.classes.Project;
+//import com.bpprojekat2014.classes.Project;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -50,7 +51,6 @@ import org.json.JSONObject;
 import com.bpprojekat2014.R;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 public class HomeActivity extends Activity {
 	
 	private String TAG="JSON_TAG_PROJECTS";
@@ -58,7 +58,6 @@ public class HomeActivity extends Activity {
 	private String username;
 	private String key;
 	private String  jsonResponse;
-	private TextView txtResponse;
 	
 	//za one tabove
 	private DrawerLayout mDrawerLayout;

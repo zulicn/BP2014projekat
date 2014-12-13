@@ -2,6 +2,7 @@ package com.bpprojekat2014;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,11 @@ import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.bpprojekat2014.classes.Aktivnost;
 import com.bpprojekat2014.classes.AppController;
 import com.bpprojekat2014.classes.Project;
+import com.bpprojekat2014.classes.Projects;
+import com.bpprojekat2014.classes.Task;
 import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import android.app.Fragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
@@ -283,7 +287,53 @@ public class HomeActivity extends Activity {
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
- 
+    private Projects kreirajPomocniObjekat()
+    {
+    	Projects projekti = new Projects();
+    	Project projekat = new Project();
+    	Aktivnost akt1 = new Aktivnost();
+    	Task task1 = new Task();
+
+    	task1.setTask_id(1);
+    	task1.setName("NerminKralj");
+    	task1.setActivity_id(1);
+    	task1.setCreated_at(new Date());
+    	task1.setDeadline(new Date());
+    	task1.setDescription("ahcaksjcb");
+    	task1.setDuration(5);
+    	task1.setStatus((float)5.5);
+    	task1.setUpdated_at(new Date());
+    	task1.setUser_id(1);
+    	
+    	// dodavanje taska u aktivnost
+    	akt1.getTaskovi().add(0,task1);
+    	akt1.setActivity_id(1);
+    	akt1.setCreated_at(new Date());
+    	akt1.setDescription("akcjbasjc");
+    	akt1.setDuration(5);
+    	akt1.setFinished(false);
+    	akt1.setName("nesto");
+    	akt1.setProject_id(1);
+    	akt1.setUpdated_at(new Date());
+    	
+    	projekat.getAktivnosti().add(0,akt1);
+    	projekat.setBudget(5);
+    	projekat.setCreated_at(new Date());
+    	projekat.setDuration(55);
+    	projekat.setEnd_date(new Date());
+    	projekat.setFinished(false);
+    	projekat.setLong_description("ascascas");
+    	projekat.setMember_count(5);
+    	projekat.setName("Da prodje");
+    	projekat.setProject_id(1);
+    	projekat.setShort_description("prodje");
+    	projekat.setStart_date(new Date());
+    	projekat.setUpdated_at(new Date());
+    	
+    	projekti.getProjects().add(0,projekat);
+    	
+    	return projekti;
+    }
     /**
      * Diplaying fragment view for selected nav drawer list item
      * */
@@ -293,11 +343,8 @@ public class HomeActivity extends Activity {
         switch (position) {
         case 0:
         	makeProjectsRequest();
-            Bundle bundle = new Bundle();
-            bundle.putString("myString", jsonResponse);
-            fragment = new HomeFragment();
-            fragment.setArguments(bundle);
-            break;
+        	fragment = new HomeFragment(kreirajPomocniObjekat());
+        	break;
         /*case 1:
             fragment = new FindPeopleFragment();
             break;

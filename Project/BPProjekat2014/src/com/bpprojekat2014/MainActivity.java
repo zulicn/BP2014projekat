@@ -93,7 +93,7 @@ public class MainActivity extends Activity implements OnClickListener {
 								String priv=obj.getString("key");
 		                          pDialog.hide();
 		                          SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-		                          Editor editor = pref.edit();
+		                           Editor editor = pref.edit();
 		                          editor.putString("username",username.getText().toString() );
 		                          editor.putString("key", priv);
 		                          editor.commit();

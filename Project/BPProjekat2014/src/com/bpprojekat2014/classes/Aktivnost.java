@@ -1,7 +1,6 @@
 package com.bpprojekat2014.classes;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,8 +12,8 @@ public class Aktivnost{ // Mora se zvati ovako jer "Activity" je nesto drugo kod
 	private String description;
 	private int duration = 0;
 	boolean finished = false;
-	private Date created_at;
-	private Date updated_at;
+	private String created_at;
+	private String updated_at;
 
 	private ArrayList<Task> taskovi;
 	
@@ -76,19 +75,19 @@ public class Aktivnost{ // Mora se zvati ovako jer "Activity" je nesto drugo kod
 		this.finished = finished;
 	}
 
-	public Date getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 
-	public Date getUpdated_at() {
+	public String getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Date updated_at) {
+	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
 	}
 

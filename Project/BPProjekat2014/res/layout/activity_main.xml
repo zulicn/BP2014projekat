@@ -54,7 +54,8 @@
             android:layout_marginTop="20dp"
             android:textColor="#fff"
             android:textSize="20sp"
-            android:inputType="text" >
+            android:inputType="text"
+            android:text="ssuljic" >
             <requestFocus />
         </EditText>
 
@@ -68,7 +69,8 @@
             android:layout_marginLeft="15dp"     
              android:textColor="#fff"
              android:textSize="20sp"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:text="sadzid" />
 
         <Button
             android:id="@+id/buttonLogin"

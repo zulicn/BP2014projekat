@@ -1,7 +1,6 @@
 package com.bpprojekat2014.classes;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 public class Task{
@@ -12,11 +11,11 @@ public class Task{
 	private String name;
 	private String description;
 	private int duration = 0;
-	private Date deadline;
+	private String deadline;
 	private float status;
 	private float real_duration;
-	private Date created_at;
-	private Date updated_at;
+	private String created_at;
+	private String updated_at;
 
 	// TBD treba dodati!
 	//boolean finished = false;
@@ -75,11 +74,11 @@ public class Task{
 		this.duration = duration;
 	}
 	
-	public Date getDeadline() {
+	public String getDeadline() {
 		return deadline;
 	}
 
-	public void setDeadline(Date deadline) {
+	public void setDeadline(String deadline) {
 		this.deadline = deadline;
 	}
 	
@@ -99,19 +98,19 @@ public class Task{
 		this.real_duration = real_duration;
 	}
 	
-	public Date getCreated_at() {
+	public String getCreated_at() {
 		return created_at;
 	}
 
-	public void setCreated_at(Date created_at) {
+	public void setCreated_at(String created_at) {
 		this.created_at = created_at;
 	}
 
-	public Date getUpdated_at() {
+	public String getUpdated_at() {
 		return updated_at;
 	}
 
-	public void setUpdated_at(Date updated_at) {
+	public void setUpdated_at(String updated_at) {
 		this.updated_at = updated_at;
 	}
 	

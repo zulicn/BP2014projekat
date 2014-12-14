@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment{
 	public static Projects projects;
+	
 	public HomeFragment(Projects proj){
 		projects = proj;
 	}
@@ -24,12 +25,11 @@ public class HomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-		String pom = "ackbascjbac " + projects.getProjects().get(0).getAktivnosti().get(0).getName();
 		
-		TextView sessionTitle = (TextView) rootView.findViewById(R.id.session1);
-	    sessionTitle.setText(pom);
+			String pom = "ackbascjbac " + projects.getProjects().get(0).getAktivnosti().get(0).getName();
+			TextView sessionTitle = (TextView) rootView.findViewById(R.id.session1);
+		    sessionTitle.setText(pom);
 		
-        
           
         return rootView;
     }

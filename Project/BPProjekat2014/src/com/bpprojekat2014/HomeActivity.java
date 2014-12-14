@@ -57,6 +57,9 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 public class HomeActivity extends Activity {
 	
+
+	private Projects projects = new Projects();
+	
 	private String TAG="JSON_TAG_PROJECTS";
 	private String TAG2="JSON_TAG_GPROJECTS";
 	private String username;
@@ -164,82 +167,105 @@ public class HomeActivity extends Activity {
 		key=pref.getString("key",null);
 		String url = String.format("http://projectmng.herokuapp.com/projects/all.json?username=%1$s&key=%2$s",username,key);
 		String tag_json_arry = "json_array_req";
-		final ProgressDialog pDialog = new ProgressDialog(this);
-		pDialog.setMessage("Loading...");
-		pDialog.show();    
+		final ProgressDialog pDialog = new ProgressDialog(this);   
 		
-		         
-		JsonArrayRequest req = new JsonArrayRequest(url,
-		                new Response.Listener<JSONArray>() {
-		                    @Override
-		                    public void onResponse(JSONArray response) {
-		                    	
-		                    	 try {
-		                             // Parsing json array response
-		                             // loop through each json object
-		                    		// ovdje sam uspjela da projekte mapriam preko GSona u nas model Project (klasu)
-		                    		 //stavila sma samo naziv i desription al mogu i ostali podaci, ali
-		                    		 // ne znam jos kako sad mapirat aktivnosti, jer su to sad liste objekata unutar objekta
-		                             jsonResponse = "";
-		                             String jsonResponse2=" ";
-		                             jsonResponse2=response.toString();
-		                             GsonBuilder gsonBuilder = new GsonBuilder();
-                                     Gson gson = gsonBuilder.create();
-                                     List<Project> projects = new ArrayList<Project>();
-                                     projects = Arrays.asList(gson.fromJson(jsonResponse2, Project[].class));// ovdje mapira u klasu Projekt, sad ce ova lsiat sadrzavat projekte
-                                     for(int j=0;j<projects.size();j++){ Log.d(TAG2, projects.get(j).toString());}// ovo samo ispise naziv i opis u logCat da vidim radil
-		                             for (int i = 0; i < response.length(); i++) {
-		      
-		                                 JSONObject project = (JSONObject) response.get(i);
-		                                 String name = project.getString("name");
-		                                 String description = project.getString("short_description");
-		                                 jsonResponse += "Name: " + name + "\n\n";
-		                                 jsonResponse += "Project description: " + description + "\n\n";// ovo sam ostavila kao prije, ovaj jsonresponse smao ono redom ispis ekao string
-		                                 jsonResponse+="Activities:\n\n";
-		                                 JSONArray activities = project.getJSONArray("activities");
-		                                 for (int j = 0; j < activities.length(); j++) {
-		                                	 JSONObject activity = (JSONObject) activities.get(j);
-			                                 String nameActivity = activity.getString("name");
-			                                 String descriptionActivity = activity.getString("description");
-			                                 jsonResponse += "Name: " + nameActivity + "\n\n";
-			                                 jsonResponse += "Description: " + descriptionActivity + "\n\n";
-			                                 jsonResponse+="Tasks:\n\n";
-			                                 JSONArray tasks = activity.getJSONArray("tasks");
-			                                 for (int k = 0; k < tasks.length(); k++) {
-			                                	 JSONObject task = (JSONObject) tasks.get(k);
-				                                 String nameTask = task.getString("name");
-				                                 String descriptionTask = task.getString("description");
-				                                 jsonResponse += "Name: " + nameTask + "\n\n";
-				                                 jsonResponse += "Description: " + descriptionTask + "\n\n";
-			                                
-			                                 }
-		                                
-		                                
-		      
-		                             }}
-		                             Log.d(TAG, jsonResponse);
-		                             //txtResponse.setText(jsonResponse);
-		      
-		                         } catch (JSONException e) {
-		                             e.printStackTrace();
-		                             Toast.makeText(getApplicationContext(),
-		                                     "Error: " + e.getMessage(),
-		                                     Toast.LENGTH_LONG).show();
-		                         }
-		                        Log.d(TAG, response.toString());        
-		                        pDialog.hide();
-		                       
-		                    }
-		                }, new Response.ErrorListener() {
-		                    @Override
-		                    public void onErrorResponse(VolleyError error) {
-		                       Log.d(TAG, "Error: " + error.getMessage());
-		                        pDialog.hide();
-		                    }
-		                });
-		 
-		// Adding request to request queue
-		AppController.getInstance().addToRequestQueue(req, tag_json_arry);
+		try
+		{	
+			// mora da mu ide string!
+			String jsonStr = "{\"projects\":[{\"id\":1,\"name\":\"BP project\",\"short_description\":" +
+					"\"Project management and meeting scheduling tool\",\"long_description\":null,\"start_date\"" +
+					":\"2014-11-02\",\"end_date\":\"2015-01-02\",\"duration\":20000,\"member_count\":5,\"budget\":0.0," +
+					"\"finished\":false,\"created_at\":\"2014-11-02T17:30:12.000Z\",\"updated_at\":\"2014-11-02T17:30:12.000Z\"," +
+					"\"activities\":[{\"id\":2,\"project_id\":1,\"name\":\"Implementation\",\"description\":\"" +
+					"Implement the Rails web app, and Android app\",\"duration\":5,\"finished\":false,\"created_at\":\"2014-11-02T19:09:55.000Z\"" +
+					",\"updated_at\":\"2014-11-02T19:09:55.000Z\",\"tasks\":[]}]},{\"id\":3,\"name\":\"test\",\"" +
+				"short_description\":\"test\",\"long_description\":\"teste\",\"start_date\":\"" +
+						"2014-11-12\",\"end_date\":null,\"duration\":39,\"member_count\":5,\"budget\":1000.0," +
+						"\"finished\":false,\"created_at\":\"2014-12-11T09:54:57.893Z\",\"updated_at\":\"" +
+						"2014-12-11T09:54:57.893Z\",\"activities\":[]}]}";
+			JSONObject obj = new JSONObject(jsonStr);
+			JSONArray jProjects = obj.getJSONArray("projects");
+			
+			for (int i = 0; i < jProjects.length(); i++)
+			{
+				Project p = new Project();
+				JSONObject pr = null;
+				if(jProjects.isNull(i) == false)
+				{
+					pr = (JSONObject) jProjects.get(i);
+				    p.setProject_id(pr.getInt("id"));
+					p.setName(pr.getString("name"));
+					p.setShort_description(pr.getString("short_description"));
+					p.setLong_description(pr.getString("long_description"));
+					p.setStart_date(pr.getString("start_date"));
+					p.setEnd_date(pr.getString("end_date"));
+					p.setDuration(pr.getInt("duration"));
+					p.setMember_count(pr.getInt("member_count"));
+					p.setBudget(pr.getDouble("budget"));
+					p.setFinished(pr.getBoolean("finished"));
+					p.setCreated_at(pr.getString("created_at"));
+					p.setUpdated_at(pr.getString("updated_at"));
+				}
+				else{break;}
+				
+				JSONArray jAktivnosti = pr.getJSONArray("activities");
+				
+				for (int j = 0; i < jAktivnosti.length(); j++)
+				{
+					JSONObject a1 = null;
+					Aktivnost a = new Aktivnost();
+					if(jAktivnosti.isNull(j) == false)
+					{
+						a1 = (JSONObject) jAktivnosti.get(j);
+						
+						a.setActivity_id(a1.getInt("id"));
+						a.setProject_id(a1.getInt("project_id"));
+						a.setName(a1.getString("name"));
+						a.setDescription(a1.getString("description"));
+						a.setDuration(a1.getInt("duration"));
+						a.setFinished(a1.getBoolean("finished"));
+						a.setCreated_at(a1.getString("created_at"));
+						a.setUpdated_at(a1.getString("updated_at"));
+					}
+					else{break;}
+					
+					JSONArray jTasks = a1.getJSONArray("tasks");
+					
+					for (int k = 0; i < jTasks.length(); k++)
+					{
+						JSONObject t1 = null;
+						
+						if(jTasks.isNull(5) == false)
+						{
+							Task t = new Task();
+							t1 = (JSONObject) jTasks.get(k);
+							
+							t.setTask_id(t1.getInt("id"));
+							t.setActivity_id(t1.getInt("activity_id"));
+							t.setUser_id(t1.getInt("user_id"));
+							t.setName(t1.getString("name"));
+							t.setDescription(t1.getString("description"));
+							t.setDuration(t1.getInt("duration"));
+							t.setDeadline(t1.getString("deadline"));
+							t.setStatus(t1.getInt("status"));
+							t.setReal_duration(t1.getInt("real_duration"));
+							t.setCreated_at(t1.getString("created_at"));
+							t.setUpdated_at(t1.getString("updated_at"));
+							a.getTaskovi().add(t);
+						}
+						else{break;}
+					}
+					p.getAktivnosti().add(a);
+				}
+				projects.getProjects().add(p);
+		    }
+		}
+		catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(getApplicationContext(),
+                    "Error: " + e.getMessage(),
+                    Toast.LENGTH_LONG).show();
+        }
 		
 	}
 	
@@ -297,38 +323,38 @@ public class HomeActivity extends Activity {
     	task1.setTask_id(1);
     	task1.setName("NerminKralj");
     	task1.setActivity_id(1);
-    	task1.setCreated_at(new Date());
-    	task1.setDeadline(new Date());
+    	task1.setCreated_at("aaa");
+    	task1.setDeadline("aaa");
     	task1.setDescription("ahcaksjcb");
     	task1.setDuration(5);
     	task1.setStatus((float)5.5);
-    	task1.setUpdated_at(new Date());
+    	task1.setUpdated_at("aaa");
     	task1.setUser_id(1);
     	
     	// dodavanje taska u aktivnost
     	akt1.getTaskovi().add(0,task1);
     	akt1.setActivity_id(1);
-    	akt1.setCreated_at(new Date());
+    	akt1.setCreated_at("aaa");
     	akt1.setDescription("akcjbasjc");
     	akt1.setDuration(5);
     	akt1.setFinished(false);
     	akt1.setName("nesto");
     	akt1.setProject_id(1);
-    	akt1.setUpdated_at(new Date());
+    	akt1.setUpdated_at("aaa");
     	
     	projekat.getAktivnosti().add(0,akt1);
     	projekat.setBudget(5);
-    	projekat.setCreated_at(new Date());
+    	projekat.setCreated_at("aaa");
     	projekat.setDuration(55);
-    	projekat.setEnd_date(new Date());
+    	projekat.setEnd_date("aaa");
     	projekat.setFinished(false);
     	projekat.setLong_description("ascascas");
     	projekat.setMember_count(5);
     	projekat.setName("Da prodje");
     	projekat.setProject_id(1);
     	projekat.setShort_description("prodje");
-    	projekat.setStart_date(new Date());
-    	projekat.setUpdated_at(new Date());
+    	projekat.setStart_date("aaa");
+    	projekat.setUpdated_at("aaa");
     	
     	projekti.getProjects().add(0,projekat);
     	
@@ -343,7 +369,8 @@ public class HomeActivity extends Activity {
         switch (position) {
         case 0:
         	makeProjectsRequest();
-        	fragment = new HomeFragment(kreirajPomocniObjekat());
+        	//fragment = new HomeFragment(kreirajPomocniObjekat());
+        	fragment = new HomeFragment(projects);
         	break;
         /*case 1:
             fragment = new FindPeopleFragment();

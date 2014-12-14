@@ -25,7 +25,7 @@ public class HomeFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_home, container, false);
-		
+			// Nek ispise bezveze
 			String pom = "ackbascjbac " + projects.getProjects().get(0).getAktivnosti().get(0).getName();
 			TextView sessionTitle = (TextView) rootView.findViewById(R.id.session1);
 		    sessionTitle.setText(pom);

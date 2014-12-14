@@ -1,5 +1,11 @@
 package com.bpprojekat2014;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -33,7 +39,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentTransaction;
 import android.app.FragmentManager;
@@ -49,6 +57,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,12 +74,8 @@ public class HomeActivity extends Activity {
 
 	private Projects projects = new Projects();
 	
-	private String TAG="JSON_TAG_PROJECTS";
-	private String TAG2="JSON_TAG_GPROJECTS";
 	private String username;
 	private String key;
-	private String  jsonResponse;
-	
 	//za one tabove
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -87,6 +97,10 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_home);
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		    StrictMode.setThreadPolicy(policy);
+		}
 		/*
 		makeProjectsRequest();
 		 txtResponse = (TextView) findViewById(R.id.txtResponse);
@@ -158,32 +172,28 @@ public class HomeActivity extends Activity {
 	            displayView(0);
 	        }
 
-	} 
-	//this retreives all projects of user, no meter if they are archived 
+	}
+
 	public void makeProjectsRequest(){
 	
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 	    username=pref.getString("username",null);
 		key=pref.getString("key",null);
 		String url = String.format("http://projectmng.herokuapp.com/projects/all.json?username=%1$s&key=%2$s",username,key);
-		String tag_json_arry = "json_array_req";
-		final ProgressDialog pDialog = new ProgressDialog(this);   
 		
+		String responseString = "";
+		try {
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpResponse response = httpclient.execute(new HttpGet(url));
+			HttpEntity entity = response.getEntity();
+			responseString = EntityUtils.toString(entity, "UTF-8");
+			System.out.println(responseString);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 		try
 		{	
-			// mora da mu ide string!
-			String jsonStr = "{\"projects\":[{\"id\":1,\"name\":\"BP project\",\"short_description\":" +
-					"\"Project management and meeting scheduling tool\",\"long_description\":null,\"start_date\"" +
-					":\"2014-11-02\",\"end_date\":\"2015-01-02\",\"duration\":20000,\"member_count\":5,\"budget\":0.0," +
-					"\"finished\":false,\"created_at\":\"2014-11-02T17:30:12.000Z\",\"updated_at\":\"2014-11-02T17:30:12.000Z\"," +
-					"\"activities\":[{\"id\":2,\"project_id\":1,\"name\":\"Implementation\",\"description\":\"" +
-					"Implement the Rails web app, and Android app\",\"duration\":5,\"finished\":false,\"created_at\":\"2014-11-02T19:09:55.000Z\"" +
-					",\"updated_at\":\"2014-11-02T19:09:55.000Z\",\"tasks\":[]}]},{\"id\":3,\"name\":\"test\",\"" +
-				"short_description\":\"test\",\"long_description\":\"teste\",\"start_date\":\"" +
-						"2014-11-12\",\"end_date\":null,\"duration\":39,\"member_count\":5,\"budget\":1000.0," +
-						"\"finished\":false,\"created_at\":\"2014-12-11T09:54:57.893Z\",\"updated_at\":\"" +
-						"2014-12-11T09:54:57.893Z\",\"activities\":[]}]}";
-			JSONObject obj = new JSONObject(jsonStr);
+			JSONObject obj = new JSONObject(responseString);
 			JSONArray jProjects = obj.getJSONArray("projects");
 			
 			for (int i = 0; i < jProjects.length(); i++)
@@ -198,10 +208,13 @@ public class HomeActivity extends Activity {
 					p.setShort_description(pr.getString("short_description"));
 					p.setLong_description(pr.getString("long_description"));
 					p.setStart_date(pr.getString("start_date"));
-					p.setEnd_date(pr.getString("end_date"));
-					p.setDuration(pr.getInt("duration"));
-					p.setMember_count(pr.getInt("member_count"));
-					p.setBudget(pr.getDouble("budget"));
+					p.setEnd_date(pr.getString("end_date"));					
+					//p.setDuration(pr.getInt("duration"));
+					p.setDuration(0); // TBD ovo izbrisati, a gornje otkomentarisati (pada ako je null u jsonu)
+					//p.setMember_count(pr.getInt("member_count"));
+					p.setMember_count(0);
+					//p.setBudget(pr.getDouble("budget"));
+					p.setBudget(0);
 					p.setFinished(pr.getBoolean("finished"));
 					p.setCreated_at(pr.getString("created_at"));
 					p.setUpdated_at(pr.getString("updated_at"));
@@ -222,7 +235,8 @@ public class HomeActivity extends Activity {
 						a.setProject_id(a1.getInt("project_id"));
 						a.setName(a1.getString("name"));
 						a.setDescription(a1.getString("description"));
-						a.setDuration(a1.getInt("duration"));
+						//a.setDuration(a1.getInt("duration"));
+						a.setDuration(0);
 						a.setFinished(a1.getBoolean("finished"));
 						a.setCreated_at(a1.getString("created_at"));
 						a.setUpdated_at(a1.getString("updated_at"));
@@ -245,10 +259,13 @@ public class HomeActivity extends Activity {
 							t.setUser_id(t1.getInt("user_id"));
 							t.setName(t1.getString("name"));
 							t.setDescription(t1.getString("description"));
-							t.setDuration(t1.getInt("duration"));
+							//t.setDuration(t1.getInt("duration"));
+							t.setDuration(0);
 							t.setDeadline(t1.getString("deadline"));
-							t.setStatus(t1.getInt("status"));
-							t.setReal_duration(t1.getInt("real_duration"));
+							//t.setStatus(t1.getInt("status"));
+							t.setStatus(0);
+							//t.setReal_duration(t1.getInt("real_duration"));
+							t.setReal_duration(0);
 							t.setCreated_at(t1.getString("created_at"));
 							t.setUpdated_at(t1.getString("updated_at"));
 							a.getTaskovi().add(t);
@@ -313,53 +330,7 @@ public class HomeActivity extends Activity {
         menu.findItem(R.id.action_settings).setVisible(!drawerOpen);
         return super.onPrepareOptionsMenu(menu);
     }
-    private Projects kreirajPomocniObjekat()
-    {
-    	Projects projekti = new Projects();
-    	Project projekat = new Project();
-    	Aktivnost akt1 = new Aktivnost();
-    	Task task1 = new Task();
-
-    	task1.setTask_id(1);
-    	task1.setName("NerminKralj");
-    	task1.setActivity_id(1);
-    	task1.setCreated_at("aaa");
-    	task1.setDeadline("aaa");
-    	task1.setDescription("ahcaksjcb");
-    	task1.setDuration(5);
-    	task1.setStatus((float)5.5);
-    	task1.setUpdated_at("aaa");
-    	task1.setUser_id(1);
-    	
-    	// dodavanje taska u aktivnost
-    	akt1.getTaskovi().add(0,task1);
-    	akt1.setActivity_id(1);
-    	akt1.setCreated_at("aaa");
-    	akt1.setDescription("akcjbasjc");
-    	akt1.setDuration(5);
-    	akt1.setFinished(false);
-    	akt1.setName("nesto");
-    	akt1.setProject_id(1);
-    	akt1.setUpdated_at("aaa");
-    	
-    	projekat.getAktivnosti().add(0,akt1);
-    	projekat.setBudget(5);
-    	projekat.setCreated_at("aaa");
-    	projekat.setDuration(55);
-    	projekat.setEnd_date("aaa");
-    	projekat.setFinished(false);
-    	projekat.setLong_description("ascascas");
-    	projekat.setMember_count(5);
-    	projekat.setName("Da prodje");
-    	projekat.setProject_id(1);
-    	projekat.setShort_description("prodje");
-    	projekat.setStart_date("aaa");
-    	projekat.setUpdated_at("aaa");
-    	
-    	projekti.getProjects().add(0,projekat);
-    	
-    	return projekti;
-    }
+    
     /**
      * Diplaying fragment view for selected nav drawer list item
      * */
@@ -391,7 +362,6 @@ public class HomeActivity extends Activity {
         default:
             break;
         }
- 
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction()

@@ -1,6 +1,10 @@
 package com.bpprojekat2014;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +14,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,6 +35,10 @@ import com.bpprojekat2014.RegisterActivity;
 import com.bpprojekat2014.classes.AppController;
 import com.bpprojekat2014.classes.User;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +69,11 @@ public class MainActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		btnMakeJSONRequest = (Button) findViewById(R.id.buttonLogin);
+		if (android.os.Build.VERSION.SDK_INT > 9) {
+		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+		    StrictMode.setThreadPolicy(policy);
+		}
+	    btnMakeJSONRequest = (Button) findViewById(R.id.buttonLogin);
 		btnMakeJSONRequest.setOnClickListener(this);
 		username = (EditText) this.findViewById(R.id.userNameLogin);
 		password = (EditText) this.findViewById(R.id.passwordLogin);
@@ -76,9 +89,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		       makeJsonRequest();
 		    }
 	       
-	
-	
-	    
+		     
 	    public void makeJsonRequest() {
 	    	
 	    	  StringRequest jsonObjReq = new StringRequest(Method.POST,
@@ -135,7 +146,6 @@ public class MainActivity extends Activity implements OnClickListener {
 	  // Adding request to request queue
 	  AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 	    	
-	    	
 	    }
 	  
 	    public void showRegistrationView(View v) {
@@ -150,12 +160,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		    startActivity(intent);
 		}
 
-	
-	
-	
-	
-	
-	
 	// --------------
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

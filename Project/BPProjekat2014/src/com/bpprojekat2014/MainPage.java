@@ -1,66 +1,22 @@
 package com.bpprojekat2014;
 
-import com.bpprojekat2014.HomeActivity.SlideMenuClickListener;
+import android.app.Activity;
+import android.os.Bundle;
+import android.os.StrictMode;
+import android.view.Menu;
+import android.view.MenuItem;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.android.volley.Request.Method;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.bpprojekat2014.classes.Aktivnost;
-import com.bpprojekat2014.classes.AppController;
 import com.bpprojekat2014.classes.Project;
 import com.bpprojekat2014.classes.Projects;
 import com.bpprojekat2014.classes.Task;
 import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
-import android.app.Fragment;
-
 import com.bpprojekat2014.classes.fragment.CreateNewProjectFragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
 import com.bpprojekat2014.classes.fragment.MyProfileFragment;
 import com.bpprojekat2014.classes.model.NavDrawerItem;
-//import com.bpprojekat2014.classes.Project;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.content.res.Configuration;
-import android.content.res.TypedArray;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.StrictMode;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentTransaction;
-import android.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -71,46 +27,54 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.bpprojekat2014.R;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-public class HomeActivity extends Activity {
-	
 
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.TypedArray;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+public class MainPage extends Activity {
+	
 	private Projects projects = new Projects();
 	
 	private String username;
 	private String key;
-	//za one tabove
+	
 	private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
- 
-    // nav drawer title
-    private CharSequence mDrawerTitle;
- 
-    // used to store app title
-    private CharSequence mTitle;
- 
-    // slide menu items
-    private String[] navMenuTitles;
-    private TypedArray navMenuIcons;
- 
-    private ArrayList<NavDrawerItem> navDrawerItems;
-    private NavDrawerListAdapter adapter;
+	private ListView mDrawerList;
+	private ActionBarDrawerToggle mDrawerToggle;
+
+	// nav drawer title
+	private CharSequence mDrawerTitle;
+
+	// used to store app title
+	private CharSequence mTitle;
+
+	// slide menu items
+	private String[] navMenuTitles;
+	private TypedArray navMenuIcons;
+
+	private ArrayList<NavDrawerItem> navDrawerItems;
+	private NavDrawerListAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_home);
+		setContentView(R.layout.activity_main_page);
+		
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		    StrictMode.setThreadPolicy(policy);
 		}
-		/*
-		makeProjectsRequest();
-		 txtResponse = (TextView) findViewById(R.id.txtResponse);
-	     */  
-	 //za tabove
+		
 		mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
@@ -128,58 +92,54 @@ public class HomeActivity extends Activity {
 		// adding nav drawer items to array
 		// Home
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		// Find People
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		// Photos
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-		// Communities, Will add a counter here
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1), true, "22"));
-		// Pages
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-		// What's hot, We  will add a counter here
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1), true, "50+"));
 		
-	     // Recycle the typed array
-			navMenuIcons.recycle();
 
-			mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+		// Recycle the typed array
+		navMenuIcons.recycle();
 
-			// setting the nav drawer list adapter
-			adapter = new NavDrawerListAdapter(getApplicationContext(),
-					navDrawerItems);
-			mDrawerList.setAdapter(adapter);
+		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
-			// enabling action bar app icon and behaving it as toggle button
-			getActionBar().setDisplayHomeAsUpEnabled(true);
-			getActionBar().setHomeButtonEnabled(true);
+		// setting the nav drawer list adapter
+		adapter = new NavDrawerListAdapter(getApplicationContext(),
+				navDrawerItems);
+		mDrawerList.setAdapter(adapter);
 
-			mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-					R.drawable.ic_drawer, //nav menu toggle icon
-					R.string.app_name, // nav drawer open - description for accessibility
-					R.string.app_name // nav drawer close - description for accessibility
-			) {
-				public void onDrawerClosed(View view) {
-					getActionBar().setTitle(mTitle);
-					// calling onPrepareOptionsMenu() to show action bar icons
-					invalidateOptionsMenu();
-				}
+		// enabling action bar app icon and behaving it as toggle button
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 
-				public void onDrawerOpened(View drawerView) {
-					getActionBar().setTitle(mDrawerTitle);
-					// calling onPrepareOptionsMenu() to hide action bar icons
-					invalidateOptionsMenu();
-				}
-			};
-			mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-			if (savedInstanceState == null) {
-				// on first time display view for first nav item
-				displayView(0);
+		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+				R.drawable.ic_drawer, //nav menu toggle icon
+				R.string.app_name, // nav drawer open - description for accessibility
+				R.string.app_name // nav drawer close - description for accessibility
+		) {
+			public void onDrawerClosed(View view) {
+				getActionBar().setTitle(mTitle);
+				// calling onPrepareOptionsMenu() to show action bar icons
+				invalidateOptionsMenu();
 			}
+
+			public void onDrawerOpened(View drawerView) {
+				getActionBar().setTitle(mDrawerTitle);
+				// calling onPrepareOptionsMenu() to hide action bar icons
+				invalidateOptionsMenu();
+			}
+		};
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+		if (savedInstanceState == null) {
+			// on first time display view for first nav item
+			displayView(0);
 		}
+	}
 
 	public void makeProjectsRequest(){
-	
+		
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 	    username=pref.getString("username",null);
 		key=pref.getString("key",null);
@@ -293,34 +253,13 @@ public class HomeActivity extends Activity {
 	/**
 	 * Slide menu item click listener
 	 * */
-	public class SlideMenuClickListener implements
+	private class SlideMenuClickListener implements
 			ListView.OnItemClickListener {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// display view for selected nav drawer item
 			displayView(position);
-		}
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		// toggle nav drawer on selecting action bar app icon/title
-		if (mDrawerToggle.onOptionsItemSelected(item)) {
-			return true;
-		}
-		// Handle action bar actions click
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
 		}
 	}
 
@@ -335,7 +274,7 @@ public class HomeActivity extends Activity {
 		return super.onPrepareOptionsMenu(menu);
 	}
 
-	/**
+	/*
 	 * Diplaying fragment view for selected nav drawer list item
 	 * */
 	private void displayView(int position) {
@@ -349,19 +288,18 @@ public class HomeActivity extends Activity {
 		case 1:
 			fragment = new MyProfileFragment();
 			break;
-		/*case 2:
-			fragment = new PhotosFragment();
+		case 2:
+			fragment = new CreateNewProjectFragment();
 			break;
-		case 3:
-			fragment = new CommunityFragment();
+		/*case 3:
+			fragment = new ();
 			break;
 		case 4:
-			fragment = new PagesFragment();
+			fragment = new ();
 			break;
 		case 5:
-			fragment = new WhatsHotFragment();
+			fragment = new ();
 			break;*/
-
 		default:
 			break;
 		}
@@ -407,4 +345,32 @@ public class HomeActivity extends Activity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main_page, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// toggle nav drawer on selecting action bar app icon/title
+				if (mDrawerToggle.onOptionsItemSelected(item)) {
+					return true;
+				}
+				// Handle action bar actions click
+				switch (item.getItemId()) {
+				case R.id.action_settings:
+					return true;
+				default:
+					return super.onOptionsItemSelected(item);
+				}
+	}
 }
+
+
+
+
+
+
+	

@@ -87,7 +87,7 @@ public class HomeFragment extends Fragment{
 		    
 		    
 		    // 
-		    //kreirajProjekat();
+		    //kreirajProjekat();*/
 		    
           
         return rootView;

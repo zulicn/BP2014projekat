@@ -15,21 +15,32 @@
     <string name="register">Register new account</string>
     <string name="reg">Register</string>
     <string name="title_activity_register">RegisterActivity</string>
-    
     <string name="drawer_open">Slider Menu Opened</string>
     <string name="drawer_close">Slider Menu Closed</string>
-     
+    
+	<string name="namee">Name</string>
+	<string name="desc">Description</string>
+	<string name="sdescription">Short Description</string>
+	<string name="ldescription">Long Description</string>
+	<string name="sdate">Start date</string>
+	<string name="edate">End date</string>
+	<string name="duration">Duration</string>
+	<string name="member">Member count</string>
+	<string name="budget">Budget</string>
+	<string name="done">Done</string>
+	
+	
     <!-- Nav Drawer Menu Items -->
     <string-array name="nav_drawer_items">
-        <item >Home</item>
-        <item >My profile</item>
-        <item >Create new project</item>
-        <item >Notifications</item>
-        <item >My projects</item>
-        <item >Assigned projects</item>
-        <item >Archived projects</item>
+        <item>Home</item>
+        <item>My profile</item>
+        <item>Create new project</item>
+        <item>Notifications</item>
+        <item>My projects</item>
+        <item>Assigned projects</item>
+        <item>Archived projects</item>
     </string-array>
-     
+
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
@@ -40,8 +51,9 @@
         <item>@drawable/ic_pages</item>
         <item>@drawable/ic_whats_hot</item>
     </array>
-     
+
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
+    <string name="title_activity_main_page">MainPage</string>
 
 </resources>

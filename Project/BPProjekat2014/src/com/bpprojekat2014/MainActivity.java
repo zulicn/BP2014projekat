@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener {
 		                          editor.putString("username",username.getText().toString() );
 		                          editor.putString("key", priv);
 		                          editor.commit();
-		                          Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+		                          Intent intent = new Intent(MainActivity.this, MainPage.class);
 		                          startActivity(intent);
 		                          finish();
 							} catch (JSONException e) {
@@ -156,7 +156,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	    public void showHomeView(View v) {
 		    Intent intent;
-		    intent = new Intent(this, HomeActivity.class);
+		    intent = new Intent(this, MainPage.class);
 		    startActivity(intent);
 		}
 

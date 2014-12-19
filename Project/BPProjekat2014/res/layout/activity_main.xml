@@ -9,7 +9,7 @@
   android:layout_alignParentLeft="true"
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
-  android:background="@color/black"     
+  android:background="@drawable/bg1"     
   android:orientation="vertical">
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="@string/log_in"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#0494D2"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp"
@@ -39,7 +39,7 @@
             android:paddingLeft="20dp"
             android:text="@string/ime_aplikacije"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="25sp"
             android:typeface="serif" />
 
@@ -52,7 +52,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="20dp"
-            android:textColor="#fff"
+            android:textColor="#333333"
             android:textSize="20sp"
             android:inputType="text"
             android:text="ssuljic" >
@@ -67,7 +67,7 @@
             android:hint="@string/pass"
             android:layout_marginRight="15dp"
             android:layout_marginLeft="15dp"     
-             android:textColor="#fff"
+             android:textColor="#333333"
              android:textSize="20sp"
             android:inputType="textPassword"
             android:text="sadzid" />
@@ -93,7 +93,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/forgot"
-            android:textColor="#ffffff"
+            android:textColor="#22CB83"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" 
             android:clickable="true"
@@ -106,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/register"
-            android:textColor="#ffffff"
+            android:textColor="#0494D2"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium" 
             android:clickable="true"

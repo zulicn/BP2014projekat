@@ -59,40 +59,45 @@ public final class R {
         public static final int list_item_bg_pressed=0x7f02000d;
         public static final int list_selector=0x7f02000e;
         public static final int login=0x7f02000f;
-        public static final int slikalogo=0x7f020010;
+        public static final int penci=0x7f020010;
+        public static final int pencil=0x7f020011;
+        public static final int round_button=0x7f020012;
+        public static final int round_button_blue=0x7f020013;
+        public static final int slikalogo=0x7f020014;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a001e;
-        public static final int budget=0x7f0a001c;
-        public static final int buttonDone=0x7f0a0013;
+        public static final int action_settings=0x7f0a001f;
+        public static final int budget=0x7f0a001b;
+        public static final int buttonDone=0x7f0a0012;
         public static final int buttonLogin=0x7f0a0008;
-        public static final int buttonRegister=0x7f0a000f;
-        public static final int counter=0x7f0a0012;
+        public static final int buttonRegister=0x7f0a000e;
+        public static final int counter=0x7f0a0011;
         public static final int drawer_layout=0x7f0a0000;
-        public static final int duration=0x7f0a0019;
-        public static final int endDate=0x7f0a0018;
+        public static final int duration=0x7f0a0018;
+        public static final int endDate=0x7f0a0017;
         public static final int frame_container=0x7f0a0001;
-        public static final int fullNameRegister=0x7f0a000c;
-        public static final int icon=0x7f0a0010;
+        public static final int fullNameRegister=0x7f0a000b;
+        public static final int icon=0x7f0a000f;
         public static final int list_slidermenu=0x7f0a0002;
-        public static final int longDescription=0x7f0a0016;
-        public static final int memberCount=0x7f0a001b;
-        public static final int name=0x7f0a0014;
+        public static final int longDescription=0x7f0a0015;
+        public static final int memberCount=0x7f0a001a;
+        public static final int name=0x7f0a0013;
         public static final int passwordLogin=0x7f0a0007;
-        public static final int passwordRegister=0x7f0a000e;
+        public static final int passwordRegister=0x7f0a000d;
+        public static final int projects_layout=0x7f0a001d;
         public static final int register=0x7f0a000a;
-        public static final int registerActivity=0x7f0a000b;
-        public static final int session1=0x7f0a001d;
-        public static final int shortDescription=0x7f0a0015;
-        public static final int startDate=0x7f0a0017;
+        public static final int relativeLayout1=0x7f0a001e;
+        public static final int session1=0x7f0a001c;
+        public static final int shortDescription=0x7f0a0014;
+        public static final int startDate=0x7f0a0016;
         public static final int textView1=0x7f0a0004;
         public static final int textView2=0x7f0a0009;
-        public static final int textView3=0x7f0a001a;
+        public static final int textView3=0x7f0a0019;
         public static final int textView4=0x7f0a0005;
-        public static final int title=0x7f0a0011;
+        public static final int title=0x7f0a0010;
         public static final int txtResponse=0x7f0a0003;
         public static final int userNameLogin=0x7f0a0006;
-        public static final int userNameRegister=0x7f0a000d;
+        public static final int userNameRegister=0x7f0a000c;
     }
     public static final class layout {
         public static final int activity_home=0x7f030000;
@@ -103,7 +108,8 @@ public final class R {
         public static final int fragment_create_new_project=0x7f030005;
         public static final int fragment_home=0x7f030006;
         public static final int fragment_my_profile=0x7f030007;
-        public static final int loginbutton_bg=0x7f030008;
+        public static final int fragment_my_projects=0x7f030008;
+        public static final int loginbutton_bg=0x7f030009;
     }
     public static final class menu {
         public static final int main=0x7f090000;

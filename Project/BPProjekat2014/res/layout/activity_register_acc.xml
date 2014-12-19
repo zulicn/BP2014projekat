@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
  tools:context=".RegisterActivity" 
   android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_alignParentBottom="true"
+  android:layout_height="fill_parent"
+ 
   android:layout_alignParentLeft="true"
   android:layout_alignParentRight="true"
   android:layout_alignParentTop="true"
   android:background="@drawable/bg1"     
-  android:orientation="vertical" 
-  android:id="@+id/registerActivity">
+  android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView1"
@@ -18,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="@string/register"
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#0494D2"
             android:layout_marginTop="20dp"
             android:textStyle="bold"
             android:layout_marginBottom="20dp"
@@ -39,7 +38,7 @@
             android:paddingLeft="20dp"
             android:text="@string/ime_aplikacije"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="25sp"
             android:typeface="serif" />
 
@@ -104,7 +103,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="@string/already"
-            android:textColor="#ffffff"
+            android:textColor="#22CB83"
             android:textStyle="bold"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:clickable="true"

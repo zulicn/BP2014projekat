@@ -14,6 +14,7 @@ import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import com.bpprojekat2014.classes.fragment.CreateNewProjectFragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
 import com.bpprojekat2014.classes.fragment.MyProfileFragment;
+import com.bpprojekat2014.classes.fragment.MyProjectsFragment;
 import com.bpprojekat2014.classes.model.NavDrawerItem;
 
 import java.util.ArrayList;
@@ -293,11 +294,12 @@ public class MainPage extends Activity {
 			break;
 		/*case 3:
 			fragment = new ();
-			break;
+			break;*/
 		case 4:
-			fragment = new ();
+			makeProjectsRequest();
+			fragment = new MyProjectsFragment(projects);
 			break;
-		case 5:
+		/*case 5:
 			fragment = new ();
 			break;*/
 		default:

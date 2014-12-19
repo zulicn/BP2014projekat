@@ -21,5 +21,10 @@ public class Projects{
 		this.projects = projects;
 	}
 	
+	public int countProjects() {
+		int count= projects.size();
+		return count;
+		
+	}
 
 }

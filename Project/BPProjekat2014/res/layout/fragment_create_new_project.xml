@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@drawable/bg1">
     
     <Button
             android:id="@+id/buttonDone"
@@ -41,14 +42,14 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:text="@string/desc"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="20sp"
             android:typeface="serif" />
     
     <View 
    android:layout_width="fill_parent"
    android:layout_height="1dp"       
-   android:background="#A2F368" />
+   android:background="#22CB83" />
 
          <EditText
             android:id="@+id/shortDescription"
@@ -84,14 +85,14 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:text="@string/duration"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="20sp"
             android:typeface="serif" />
     
     <View 
    android:layout_width="fill_parent"
    android:layout_height="1dp"       
-   android:background="#A2F368" />
+   android:background="#22CB83" />
     
 <EditText
             android:id="@+id/startDate"
@@ -140,14 +141,14 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:text="@string/member"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="20sp"
             android:typeface="serif" />
     
     <View 
    android:layout_width="fill_parent"
    android:layout_height="1dp"       
-   android:background="#A2F368" />
+   android:background="#22CB83" />
 
 <EditText
             android:id="@+id/memberCount"
@@ -170,14 +171,14 @@
             android:gravity="center"
             android:paddingLeft="20dp"
             android:text="@string/budget"
-            android:textColor="#A2F368"
+            android:textColor="#22CB83"
             android:textSize="20sp"
             android:typeface="serif" />
     
     <View 
    android:layout_width="fill_parent"
    android:layout_height="1dp"       
-   android:background="#A2F368" />
+   android:background="#22CB83" />
 
 <EditText
             android:id="@+id/budget"

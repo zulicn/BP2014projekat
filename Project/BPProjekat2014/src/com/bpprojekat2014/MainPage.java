@@ -13,6 +13,7 @@ import com.bpprojekat2014.classes.Task;
 import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import com.bpprojekat2014.classes.fragment.CreateNewProjectFragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
+import com.bpprojekat2014.classes.fragment.MyDocumentsFragment;
 import com.bpprojekat2014.classes.fragment.MyProfileFragment;
 import com.bpprojekat2014.classes.fragment.MyProjectsFragment;
 import com.bpprojekat2014.classes.model.NavDrawerItem;
@@ -283,7 +284,7 @@ public class MainPage extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			makeProjectsRequest();
+			if(projects.countProjects()==0)makeProjectsRequest();
 			fragment = new HomeFragment(projects);
 			break;
 		case 1:
@@ -296,12 +297,13 @@ public class MainPage extends Activity {
 			fragment = new ();
 			break;*/
 		case 4:
-			makeProjectsRequest();
+			if(projects.countProjects()==0)makeProjectsRequest();
 			fragment = new MyProjectsFragment(projects);
 			break;
-		/*case 5:
-			fragment = new ();
-			break;*/
+		case 5:
+			if(projects.countProjects()==0)makeProjectsRequest();
+			fragment = new MyDocumentsFragment(projects);
+			break;
 		default:
 			break;
 		}

@@ -81,7 +81,7 @@ public class HomeFragment extends Fragment{
 		    StrictMode.setThreadPolicy(policy);
 		}
 			// Nek ispise bezveze
-			String pom = "ackbascjbac " + projects.getProjects().get(0).getAktivnosti().get(0).getName();
+			String pom = "ackbascjbac ";
 			TextView sessionTitle = (TextView) rootView.findViewById(R.id.session1);
 		    sessionTitle.setText(pom);
 		    

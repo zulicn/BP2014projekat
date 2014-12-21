@@ -5,24 +5,13 @@
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent" 
         android:background="@drawable/bg1"
-        android:id="@+id/projects_layout">
+        android:id="@+id/activities_layout">
 
 <RelativeLayout android:id="@+id/relativeLayout1"
         android:layout_height="wrap_content" 
         android:layout_width="fill_parent"
         android:layout_alignParentBottom="true">
 
-<Button
-        android:id="@+id/crNewPr"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginLeft="240dp"
-        android:background="@drawable/round_button"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="+"
-        android:textSize="30sp"
-        android:textColor="#fff" 
-        />
 
 </RelativeLayout>
 </RelativeLayout>

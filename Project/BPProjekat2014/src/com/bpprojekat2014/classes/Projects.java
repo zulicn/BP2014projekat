@@ -26,5 +26,8 @@ public class Projects{
 		return count;
 		
 	}
+	public void deleteAllProjects(){
+		this.projects= new ArrayList<Project>();
+	}
 
 }

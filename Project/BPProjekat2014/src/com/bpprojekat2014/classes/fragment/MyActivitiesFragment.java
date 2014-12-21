@@ -21,12 +21,12 @@ import com.bpprojekat2014.R;
 import com.bpprojekat2014.classes.Projects;
 import com.bpprojekat2014.classes.User;
 
-public class MyProjectsFragment extends Fragment{
+public class MyActivitiesFragment extends Fragment{
 	public static Projects projects;
 	public static User user;
 	private Button btnCreateProject;
-	public MyProjectsFragment(){}
-	public MyProjectsFragment(Projects proj, User usr){
+	public MyActivitiesFragment(){}
+	public MyActivitiesFragment(Projects proj, User usr, int indexProj){
 		projects = proj;
 		user = usr;
 	}
@@ -34,22 +34,11 @@ public class MyProjectsFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
   
-        View rootView = inflater.inflate(R.layout.fragment_my_projects, container, false);
-        // Kreiranje novog projekta (okruglil "+" button)
-        btnCreateProject= (Button) rootView.findViewById(R.id.crNewPr);
-        btnCreateProject.setOnClickListener(new OnClickListener()
-	    {
-		   @Override
-	             public void onClick(View v)
-	             {
-				    Fragment fragment = new CreateNewProjectFragment(projects, user);
-				    FragmentManager fragmentManager = getFragmentManager();
-					fragmentManager.beginTransaction()
-							.replace(R.id.frame_container, fragment).commit();
-	             } 
-	    }); 
-        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.projects_layout);
-        int number=projects.countProjects();
+        View rootView = inflater.inflate(R.layout.fragment_my_activities, container, false);
+        
+        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.activities_layout);
+        
+        int number=projects.getProjects().get(0).countActivities();
         
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)

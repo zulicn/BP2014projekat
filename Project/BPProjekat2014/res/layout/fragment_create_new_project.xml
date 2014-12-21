@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" 
     android:background="@drawable/bg1">
-    
-    <Button
+   <Button
             android:id="@+id/buttonDone"
             android:layout_width="fill_parent"
             android:layout_height="40dp"
@@ -30,7 +29,8 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="text" >
+            android:inputType="text" 
+            android:text="Ime projekta">
             <requestFocus />
         </EditText>
         
@@ -62,7 +62,8 @@
             android:layout_marginTop="5dp"     
              android:textColor="#000000"
              android:textSize="15sp"
-            android:inputType="textCapSentences|textMultiLine" />
+            android:inputType="textCapSentences|textMultiLine" 
+            android:text="kratki opis"/>
          
          <EditText
             android:id="@+id/longDescription"
@@ -75,7 +76,8 @@
             android:layout_marginTop="5dp"     
              android:textColor="#000000"
              android:textSize="15sp"
-            android:inputType="textCapSentences|textMultiLine" />
+            android:inputType="textCapSentences|textMultiLine" 
+            android:text="dugi opis"/>
          
          <TextView
             android:id="@+id/textView2"
@@ -105,7 +107,8 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="datetime" />
+            android:inputType="date" 
+            android:text="2014-10-18"/>
 
 <EditText
             android:id="@+id/endDate"
@@ -118,7 +121,8 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="datetime" />
+            android:inputType="date"
+            android:text="2014-10-18" />
 
 <EditText
             android:id="@+id/duration"
@@ -131,7 +135,8 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="5555"/>
 
 <TextView
             android:id="@+id/textView3"
@@ -161,7 +166,8 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="number" />
+            android:inputType="number"
+            android:text="5" />
 
 <TextView
             android:id="@+id/textView4"
@@ -191,6 +197,6 @@
             android:layout_marginTop="5dp"
             android:textColor="#000000"
             android:textSize="15sp"
-            android:inputType="number" />
-            
+            android:inputType="number" 
+            android:text="999888.90"/>
 </LinearLayout>

@@ -5,16 +5,15 @@ public class User {
 
 	private String username = "";
 	private String fullName = ""; // ime i prezime
-	// private String password= "";
+	private String key= "";
 	
 	public User(String username){
 		this.username = username;
 	}
-	public User(String username, String fullName){
+	public User(String username, String key){
 		this.username = username;
-		this.fullName = fullName;
+		this.key = key;
 	}
-	
 	public String getUsername() {
 		return username;
 	}
@@ -28,6 +27,12 @@ public class User {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
 	}
 	
 	// Za password ne trebaju ni getteri ni setteri, jedino da cuvamo neku hashiranu vrijednost

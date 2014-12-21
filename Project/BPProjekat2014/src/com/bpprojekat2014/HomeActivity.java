@@ -343,9 +343,9 @@ public class HomeActivity extends Activity {
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			makeProjectsRequest();
-			fragment = new HomeFragment(projects);
-			break;
+			//makeProjectsRequest();
+			//fragment = new HomeFragment(projects,user);
+			//break;
 		case 1:
 			fragment = new MyProfileFragment();
 			break;

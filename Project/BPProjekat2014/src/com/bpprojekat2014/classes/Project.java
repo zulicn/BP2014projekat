@@ -27,6 +27,11 @@ public class Project{
 		return name+" "+short_description;
 	}
 
+	public int countActivities() {
+		int count= aktivnosti.size();
+		return count;
+		
+	}
 	public int getProject_id() {
 		return project_id;
 	}

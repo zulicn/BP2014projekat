@@ -5,5 +5,41 @@
     android:orientation="vertical" 
     android:background="@drawable/bg1">
     
+    <TextView
+            android:id="@+id/aa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:textColor="#22CB83"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:inputType="text"
+            android:text=" " />
+    <TextView
+            android:id="@+id/aaa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:textColor="#22CB83"
+            android:textSize="20sp"
+            android:typeface="serif"
+            android:inputType="text"
+            android:text=" " />
+    <TextView
+            android:id="@+id/userData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:text="@string/desc"
+            android:textColor="#60CEFD"
+            android:textSize="20sp"
+            android:typeface="serif" />
+    
 
 </LinearLayout>

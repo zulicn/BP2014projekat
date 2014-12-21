@@ -67,12 +67,16 @@ public final class R {
         public static final int slikalogo=0x7f020015;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a001f;
+        public static final int aa=0x7f0a0020;
+        public static final int aaa=0x7f0a0021;
+        public static final int action_settings=0x7f0a0024;
+        public static final int activities_layout=0x7f0a001d;
         public static final int budget=0x7f0a001b;
         public static final int buttonDone=0x7f0a0012;
         public static final int buttonLogin=0x7f0a0008;
         public static final int buttonRegister=0x7f0a000e;
         public static final int counter=0x7f0a0011;
+        public static final int crNewPr=0x7f0a0023;
         public static final int drawer_layout=0x7f0a0000;
         public static final int duration=0x7f0a0018;
         public static final int endDate=0x7f0a0017;
@@ -85,7 +89,7 @@ public final class R {
         public static final int name=0x7f0a0013;
         public static final int passwordLogin=0x7f0a0007;
         public static final int passwordRegister=0x7f0a000d;
-        public static final int projects_layout=0x7f0a001d;
+        public static final int projects_layout=0x7f0a001f;
         public static final int register=0x7f0a000a;
         public static final int relativeLayout1=0x7f0a001e;
         public static final int session1=0x7f0a001c;
@@ -97,6 +101,7 @@ public final class R {
         public static final int textView4=0x7f0a0005;
         public static final int title=0x7f0a0010;
         public static final int txtResponse=0x7f0a0003;
+        public static final int userData=0x7f0a0022;
         public static final int userNameLogin=0x7f0a0006;
         public static final int userNameRegister=0x7f0a000c;
     }
@@ -108,10 +113,11 @@ public final class R {
         public static final int drawer_list_item=0x7f030004;
         public static final int fragment_create_new_project=0x7f030005;
         public static final int fragment_home=0x7f030006;
-        public static final int fragment_my_documents=0x7f030007;
-        public static final int fragment_my_profile=0x7f030008;
-        public static final int fragment_my_projects=0x7f030009;
-        public static final int loginbutton_bg=0x7f03000a;
+        public static final int fragment_my_activities=0x7f030007;
+        public static final int fragment_my_documents=0x7f030008;
+        public static final int fragment_my_profile=0x7f030009;
+        public static final int fragment_my_projects=0x7f03000a;
+        public static final int loginbutton_bg=0x7f03000b;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -123,10 +129,11 @@ public final class R {
         public static final int already=0x7f060004;
         public static final int app_name=0x7f060000;
         public static final int budget=0x7f060018;
+        public static final int crNewPr=0x7f06001b;
         public static final int desc=0x7f060011;
         /**  Content Description 
          */
-        public static final int desc_list_item_icon=0x7f06001a;
+        public static final int desc_list_item_icon=0x7f06001c;
         public static final int done=0x7f060019;
         public static final int drawer_close=0x7f06000f;
         public static final int drawer_open=0x7f06000e;
@@ -146,9 +153,10 @@ public final class R {
         public static final int sdate=0x7f060014;
         public static final int sdescription=0x7f060012;
         public static final int title_activity_main=0x7f060001;
-        public static final int title_activity_main_page=0x7f06001b;
+        public static final int title_activity_main_page=0x7f06001d;
         public static final int title_activity_register=0x7f06000d;
         public static final int user=0x7f060008;
+        public static final int userData=0x7f06001a;
     }
     public static final class style {
         /** 

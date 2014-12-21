@@ -15,6 +15,7 @@ import com.bpprojekat2014.classes.Document;
 import com.bpprojekat2014.classes.Project;
 import com.bpprojekat2014.classes.Projects;
 import com.bpprojekat2014.classes.Task;
+import com.bpprojekat2014.classes.User;
 import com.bpprojekat2014.classes.adapter.NavDrawerListAdapter;
 import com.bpprojekat2014.classes.fragment.CreateNewProjectFragment;
 import com.bpprojekat2014.classes.fragment.HomeFragment;
@@ -46,16 +47,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainPage extends Activity {
 	
 	private Projects projects = new Projects();
+	private User user;
 	private ArrayList<Document> documents;
 	private ProgressDialog pDialog;
 	private String TAG="TAG_JSON";
-	
 	private String username;
 	private String key;
 	
@@ -149,7 +151,6 @@ public class MainPage extends Activity {
 			displayView(0);
 		}
 	}
-	
 	 public void makeDocsRequest(){
 	    	
 	    	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
@@ -214,12 +215,12 @@ public class MainPage extends Activity {
 	      
 	    	    AppController.getInstance().addToRequestQueue(req);
 	    }
-
 	public void makeProjectsRequest(){
 		
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 	    username=pref.getString("username",null);
 		key=pref.getString("key",null);
+		user = new User(username, key);
 		String url = String.format("http://projectmng.herokuapp.com/projects/all.json?username=%1$s&key=%2$s",username,key);
 		
 		String responseString = "";
@@ -234,6 +235,7 @@ public class MainPage extends Activity {
 		}
 		try
 		{	
+			projects.deleteAllProjects();
 			JSONObject obj = new JSONObject(responseString);
 			JSONArray jProjects = obj.getJSONArray("projects");
 			
@@ -354,28 +356,31 @@ public class MainPage extends Activity {
 	/*
 	 * Diplaying fragment view for selected nav drawer list item
 	 * */
+	
 	private void displayView(int position) {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
 		switch (position) {
 		case 0:
-			if(projects.countProjects()==0)makeProjectsRequest();
-			fragment = new HomeFragment(projects);
+			makeProjectsRequest();
+			fragment = new HomeFragment(projects, user);
 			break;
 		case 1:
-			fragment = new MyProfileFragment();
+			fragment = new MyProfileFragment(user);
 			break;
 		case 2:
-			fragment = new CreateNewProjectFragment();
+			makeProjectsRequest();
+			fragment = new CreateNewProjectFragment(projects, user);
 			break;
 		/*case 3:
 			fragment = new ();
 			break;*/
 		case 4:
-			if(projects.countProjects()==0)makeProjectsRequest();
-			fragment = new MyProjectsFragment(projects);
+			makeProjectsRequest();
+			fragment = new MyProjectsFragment(projects, user);
 			break;
 		case 5:
+			makeProjectsRequest();
 			if(documents.size()==0)makeDocsRequest();
 			String size= Integer.toString(documents.size());
             Log.d("vel", size);  

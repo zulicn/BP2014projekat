@@ -6,7 +6,12 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.bpprojekat2014.classes.Aktivnost;
+import com.bpprojekat2014.classes.AppController;
+import com.bpprojekat2014.classes.Document;
 import com.bpprojekat2014.classes.Project;
 import com.bpprojekat2014.classes.Projects;
 import com.bpprojekat2014.classes.Task;
@@ -32,6 +37,7 @@ import org.json.JSONObject;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -46,6 +52,9 @@ import android.widget.Toast;
 public class MainPage extends Activity {
 	
 	private Projects projects = new Projects();
+	private ArrayList<Document> documents;
+	private ProgressDialog pDialog;
+	private String TAG="TAG_JSON";
 	
 	private String username;
 	private String key;
@@ -71,6 +80,7 @@ public class MainPage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_page);
+		if(documents==null){documents=new ArrayList<Document>();}
 		
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -139,6 +149,71 @@ public class MainPage extends Activity {
 			displayView(0);
 		}
 	}
+	
+	 public void makeDocsRequest(){
+	    	
+	    	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+		    String username=pref.getString("username",null);
+			String key=pref.getString("key",null);
+			String url = String.format("https://projectmng.herokuapp.com/tasks/2/uploads.json?username=%1$s&key=%2$s",username,key);
+	        pDialog = new ProgressDialog(this);
+	    	pDialog.setMessage("Loading...");
+	    	pDialog.show();     
+	    	      
+	    	  JsonArrayRequest req = new JsonArrayRequest(url,
+	    	            new Response.Listener<JSONArray>() {
+	    	                @Override
+	    	                public void onResponse(JSONArray response) {
+	    	                    Log.d(TAG, response.toString());
+	    	 
+	    	                    try {
+	    	                        // Parsing json array response
+	    	                        // loop through each json object
+	    	                     
+	    	                        for (int i = 0; i < response.length(); i++) {
+	    	 
+	    	                            JSONObject document = (JSONObject) response
+	    	                                    .get(i);
+	    	 
+	    	                            String name = document.getString("filename");
+	    	                            Integer id = document.getInt("id");
+	    	                            Integer task_id=document.getInt("task_id");
+	    	                            Document doc=new Document(id,task_id,name);
+	    	                            documents.add(doc);
+	    	                           
+	    	                           
+	    	 
+	    	                        }
+	    	                        String size= Integer.toString(documents.size());
+	    	                      
+	    	                      
+	    	 
+	    	                        
+	    	 
+	    	                    } catch (JSONException e) {
+	    	                        e.printStackTrace();
+	    	                  
+	    	                       
+	    	                    }
+	    	              
+	    	                    pDialog.hide();
+	    	                  
+	    	                }
+	    	            }, new Response.ErrorListener() {
+	    	                @Override
+	    	                public void onErrorResponse(VolleyError error) {
+	    	                    Log.d(TAG, "Error: " + error.getMessage());
+	    	                    pDialog.hide();
+	    	                   
+	    	                    
+	    	                }
+	    	            });
+	    	 
+	        
+	    	    // Adding request to request queue
+	      
+	    	    AppController.getInstance().addToRequestQueue(req);
+	    }
 
 	public void makeProjectsRequest(){
 		
@@ -301,8 +376,10 @@ public class MainPage extends Activity {
 			fragment = new MyProjectsFragment(projects);
 			break;
 		case 5:
-			if(projects.countProjects()==0)makeProjectsRequest();
-			fragment = new MyDocumentsFragment(projects);
+			if(documents.size()==0)makeDocsRequest();
+			String size= Integer.toString(documents.size());
+            Log.d("vel", size);  
+			fragment = new MyDocumentsFragment(documents);
 			break;
 		default:
 			break;

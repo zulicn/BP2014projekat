@@ -3,7 +3,9 @@ package com.bpprojekat2014.classes.fragment;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -35,6 +37,8 @@ public class MyProjectsFragment extends Fragment{
             Bundle savedInstanceState) {
   
         View rootView = inflater.inflate(R.layout.fragment_my_projects, container, false);
+        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.projects_layout);
+        
         // Kreiranje novog projekta (okruglil "+" button)
         btnCreateProject= (Button) rootView.findViewById(R.id.crNewPr);
         btnCreateProject.setOnClickListener(new OnClickListener()
@@ -48,9 +52,9 @@ public class MyProjectsFragment extends Fragment{
 							.replace(R.id.frame_container, fragment).commit();
 	             } 
 	    }); 
-        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.projects_layout);
-        int number=projects.countProjects();
         
+        int number=projects.countProjects();
+        Button[] btn = new Button[number];
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)
          {
@@ -58,19 +62,26 @@ public class MyProjectsFragment extends Fragment{
             tv.setText(projects.getProjects().get(i).getName());
             tv.setTextColor(Color.parseColor("#22CB83")); 
              tv.setTextSize(25);
-            // tv.setBackgroundColor(Color.WHITE);
             int curTextViewId = prijasnji + 1;
             tv.setId(curTextViewId);
-            
-            Button btn = new Button(getActivity());
-            btn.setText("");
-            btn.setTextColor(Color.parseColor("#0494D2"));
-            btn.setTextSize(10);
-            btn.setBackgroundResource(R.drawable.round_button_blue);
-            btn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.penci, 0, 0, 0);
+            btn[i] = new Button(getActivity());
+            btn[i].setText("");
+            btn[i].setTextColor(Color.parseColor("#0494D2"));
+            btn[i].setTextSize(10);
+            btn[i].setBackgroundResource(R.drawable.round_button_blue);
+            btn[i].setCompoundDrawablesWithIntrinsicBounds(R.drawable.penci, 0, 0, 0);
             int curButtonId = prijasnje_dugme + 1;
-            btn.setId(curButtonId);
- 
+            btn[i].setId(curButtonId);
+            
+            btn[i].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {            	
+                	Fragment fragment = new MyActivitiesFragment(projects, user, v.getId()-1);
+				    FragmentManager fragmentManager = getFragmentManager();
+					fragmentManager.beginTransaction()
+							.replace(R.id.frame_container, fragment).commit();                           		
+                }
+              });
+            
             final RelativeLayout.LayoutParams params = 
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
                                                     RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -85,13 +96,13 @@ public class MyProjectsFragment extends Fragment{
             params2.addRule(RelativeLayout.BELOW, prijasnje_dugme);
             params2.addRule(RelativeLayout.RIGHT_OF, curTextViewId);
             params2.setMargins(300, 20, 100, 0);
-            btn.setLayoutParams(params2);
+            btn[i].setLayoutParams(params2);
            
             prijasnji = curTextViewId;
             prijasnje_dugme = curButtonId;
             try{
                 relativeLayout.addView(tv, params);
-                relativeLayout.addView(btn, params2);
+                relativeLayout.addView(btn[i], params2);
          }catch(Exception e){
                 e.printStackTrace();
          }

@@ -21,7 +21,11 @@ public class Aktivnost{ // Mora se zvati ovako jer "Activity" je nesto drugo kod
 	{
 		this.taskovi = new ArrayList<Task>();
 	}
-	
+	public int countTasks() {
+		int count= taskovi.size();
+		return count;
+		
+	}
 	@Override
 	public String toString(){
 		return description;

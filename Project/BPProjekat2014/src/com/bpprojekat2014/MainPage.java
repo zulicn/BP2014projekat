@@ -266,7 +266,7 @@ public class MainPage extends Activity {
 				
 				JSONArray jAktivnosti = pr.getJSONArray("activities");
 				
-				for (int j = 0; i < jAktivnosti.length(); j++)
+				for (int j = 0; j < jAktivnosti.length(); j++)
 				{
 					JSONObject a1 = null;
 					Aktivnost a = new Aktivnost();
@@ -288,11 +288,11 @@ public class MainPage extends Activity {
 					
 					JSONArray jTasks = a1.getJSONArray("tasks");
 					
-					for (int k = 0; i < jTasks.length(); k++)
+					for (int k = 0; k < jTasks.length(); k++)
 					{
 						JSONObject t1 = null;
 						
-						if(jTasks.isNull(5) == false)
+						if(jTasks.isNull(k) == false)
 						{
 							Task t = new Task();
 							t1 = (JSONObject) jTasks.get(k);

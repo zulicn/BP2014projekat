@@ -21,32 +21,34 @@ import com.bpprojekat2014.R;
 import com.bpprojekat2014.classes.Projects;
 import com.bpprojekat2014.classes.User;
 
-public class MyActivitiesFragment extends Fragment{
+public class MyTasksFragment extends Fragment{
 	public static Projects projects;
 	public static User user;
 	private int indeksProjekta = 0;
-	private Button btnCreateAktivnost;
-	public MyActivitiesFragment(){}
-	public MyActivitiesFragment(Projects proj, User usr, int indeksProjekta){
+	private int indeksAktivnosti = 0;
+	private Button btnCreateTask;
+	public MyTasksFragment(){}
+	public MyTasksFragment(Projects proj, User usr, int indeksProjekta, int indeksAktivnosti){
 		projects = proj;
 		user = usr;
 		this.indeksProjekta = indeksProjekta;
+		this.indeksAktivnosti = indeksAktivnosti;
 	}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
   
-        View rootView = inflater.inflate(R.layout.fragment_my_activities, container, false);    
-        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.activities_layout);
+        View rootView = inflater.inflate(R.layout.fragment_my_tasks, container, false);    
+        RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.tasks_layout);
         
         // Kreiranje nove aktivnosti (okruglil "+" button)
-        btnCreateAktivnost= (Button) rootView.findViewById(R.id.crNewAktivnost);
-        btnCreateAktivnost.setOnClickListener(new OnClickListener()
+        btnCreateTask= (Button) rootView.findViewById(R.id.crNewTask);
+        btnCreateTask.setOnClickListener(new OnClickListener()
 	    {
 		   @Override
 	             public void onClick(View v)
 	             {
-			   		// TBD Izmijeniti da ga uputi na kreiranje aktivnosti!
+			   		// TBD Izmijeniti da ga uputi na kreiranje taska!
 				    Fragment fragment = new CreateNewProjectFragment(projects, user);
 				    FragmentManager fragmentManager = getFragmentManager();
 					fragmentManager.beginTransaction()
@@ -54,13 +56,13 @@ public class MyActivitiesFragment extends Fragment{
 	             } 
 	    }); 
         
-        int number=projects.getProjects().get(indeksProjekta).countActivities();
+        int number = projects.getProjects().get(indeksProjekta).getAktivnosti().get(indeksAktivnosti).countTasks();
         Button[] btn = new Button[number];
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)
          {
             TextView tv = new TextView(getActivity());
-            tv.setText(projects.getProjects().get(indeksProjekta).getAktivnosti().get(i).getName());
+            tv.setText(projects.getProjects().get(indeksProjekta).getAktivnosti().get(indeksAktivnosti).getTaskovi().get(i).getName());
             tv.setTextColor(Color.parseColor("#22CB83")); 
              tv.setTextSize(25);
             int curTextViewId = prijasnji + 1;
@@ -74,15 +76,16 @@ public class MyActivitiesFragment extends Fragment{
             btn[i].setCompoundDrawablesWithIntrinsicBounds(R.drawable.penci, 0, 0, 0);
             int curButtonId = prijasnje_dugme + 1;
             btn[i].setId(curButtonId);
-            
+            /* Button za kreiranje necega dalje ne treba jer nema sta dalje kreirati!
             btn[i].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {            	
-                	Fragment fragment = new MyTasksFragment(projects, user, indeksProjekta, v.getId()-1);
+                	Fragment fragment = new MyTasksFragment(projects, user, v.getId()-1);
 				    FragmentManager fragmentManager = getFragmentManager();
 					fragmentManager.beginTransaction()
 							.replace(R.id.frame_container, fragment).commit();                           		
                 }
               });
+              */
             final RelativeLayout.LayoutParams params = 
                     new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT, 
                                                     RelativeLayout.LayoutParams.WRAP_CONTENT);

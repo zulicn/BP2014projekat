@@ -39,6 +39,7 @@ import org.json.JSONObject;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -82,7 +83,7 @@ public class MainPage extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_page);
-		if(documents==null){documents=new ArrayList<Document>();}
+		
 		
 		if (android.os.Build.VERSION.SDK_INT > 9) {
 		    StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -150,8 +151,12 @@ public class MainPage extends Activity {
 			// on first time display view for first nav item
 			displayView(0);
 		}
+		makeDocsRequest(); 
+		
 	}
-	 public void makeDocsRequest(){
+	     public void makeDocsRequest(){
+		     
+		 	documents=new ArrayList<Document>();
 	    	
 	    	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
 		    String username=pref.getString("username",null);
@@ -175,26 +180,16 @@ public class MainPage extends Activity {
 	    	 
 	    	                            JSONObject document = (JSONObject) response
 	    	                                    .get(i);
-	    	 
 	    	                            String name = document.getString("filename");
 	    	                            Integer id = document.getInt("id");
 	    	                            Integer task_id=document.getInt("task_id");
 	    	                            Document doc=new Document(id,task_id,name);
 	    	                            documents.add(doc);
-	    	                           
-	    	                           
-	    	 
-	    	                        }
+	    	                            	                        }
 	    	                        String size= Integer.toString(documents.size());
-	    	                      
-	    	                      
-	    	 
-	    	                        
-	    	 
+	
 	    	                    } catch (JSONException e) {
-	    	                        e.printStackTrace();
-	    	                  
-	    	                       
+	    	                        e.printStackTrace();     
 	    	                    }
 	    	              
 	    	                    pDialog.hide();
@@ -363,7 +358,8 @@ public class MainPage extends Activity {
 		switch (position) {
 		case 0:
 			makeProjectsRequest();
-			fragment = new HomeFragment(projects, user);
+			Integer id=projects.getProjects().get(0).getAktivnosti().get(0).getTaskovi().get(0).getTask_id();
+			fragment = new HomeFragment(id);
 			break;
 		case 1:
 			fragment = new MyProfileFragment(user);
@@ -380,10 +376,8 @@ public class MainPage extends Activity {
 			fragment = new MyProjectsFragment(projects, user);
 			break;
 		case 5:
-			makeProjectsRequest();
-			if(documents.size()==0)makeDocsRequest();
-			String size= Integer.toString(documents.size());
-            Log.d("vel", size);  
+			
+		
 			fragment = new MyDocumentsFragment(documents);
 			break;
 		default:
@@ -452,6 +446,8 @@ public class MainPage extends Activity {
 					return super.onOptionsItemSelected(item);
 				}
 	}
+	
+
 }
 
 

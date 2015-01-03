@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +57,7 @@ public class MyDocumentsFragment extends Fragment {
         RelativeLayout relativeLayout = (RelativeLayout)rootView.findViewById(R.id.projects_layout);
     	
         int number=documents.size();
-        
+      
         Button[] btn = new Button[number];
         
         int prijasnji=0, prijasnje_dugme=0;
@@ -80,7 +81,7 @@ public class MyDocumentsFragment extends Fragment {
                 	SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
             	    String username=pref.getString("username",null);
             		String key=pref.getString("key",null);
-            		String pom ="https://projectmng.herokuapp.com/tasks/2/uploads/"+v.getId()+"?username=%1$s&key=%2$s";
+            		String pom ="https://projectmng.herokuapp.com/tasks/3/uploads/"+v.getId()+"?username=%1$s&key=%2$s";
             		String url = String.format(pom,username,key);
             	
                 	Uri uri = Uri.parse(url);

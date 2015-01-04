@@ -6,9 +6,11 @@ import android.os.StrictMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.bpprojekat2014.classes.Aktivnost;
 import com.bpprojekat2014.classes.AppController;
 import com.bpprojekat2014.classes.Document;
@@ -61,6 +63,7 @@ public class MainPage extends Activity {
 	private String TAG="TAG_JSON";
 	private String username;
 	private String key;
+	public Integer taskId;
 	
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
@@ -152,6 +155,7 @@ public class MainPage extends Activity {
 			displayView(0);
 		}
 		makeDocsRequest(); 
+		makeTaskRequest();
 		
 	}
 	     public void makeDocsRequest(){
@@ -162,9 +166,7 @@ public class MainPage extends Activity {
 		    String username=pref.getString("username",null);
 			String key=pref.getString("key",null);
 			String url = String.format("https://projectmng.herokuapp.com/tasks/2/uploads.json?username=%1$s&key=%2$s",username,key);
-	        pDialog = new ProgressDialog(this);
-	    	pDialog.setMessage("Loading...");
-	    	pDialog.show();     
+	          
 	    	      
 	    	  JsonArrayRequest req = new JsonArrayRequest(url,
 	    	            new Response.Listener<JSONArray>() {
@@ -186,21 +188,22 @@ public class MainPage extends Activity {
 	    	                            Document doc=new Document(id,task_id,name);
 	    	                            documents.add(doc);
 	    	                            	                        }
+	    	                        
 	    	                        String size= Integer.toString(documents.size());
+	    	                    
 	
 	    	                    } catch (JSONException e) {
 	    	                        e.printStackTrace();     
 	    	                    }
 	    	              
-	    	                    pDialog.hide();
+	    	               
 	    	                  
 	    	                }
 	    	            }, new Response.ErrorListener() {
 	    	                @Override
 	    	                public void onErrorResponse(VolleyError error) {
 	    	                    Log.d(TAG, "Error: " + error.getMessage());
-	    	                    pDialog.hide();
-	    	                   
+	    	               
 	    	                    
 	    	                }
 	    	            });
@@ -209,7 +212,66 @@ public class MainPage extends Activity {
 	    	    // Adding request to request queue
 	      
 	    	    AppController.getInstance().addToRequestQueue(req);
+	    	
 	    }
+	     
+	     public void makeTaskRequest(){
+		     
+			 
+		    	
+		    	SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+			    String username=pref.getString("username",null);
+				String key=pref.getString("key",null);
+				String url = String.format("http://projectmng.herokuapp.com/tasks.json?key=%1$s&username=%2$s",key,username);
+		        pDialog = new ProgressDialog(this);
+		    	pDialog.setMessage("LoadingTasks...");
+		    	pDialog.show();     
+		    	      
+		    	  JsonObjectRequest req = new JsonObjectRequest(Method.GET,url,null,
+		    	            new Response.Listener<JSONObject>() {
+		    	                @Override
+		    	                public void onResponse(JSONObject response) {
+		    	                    Log.d(TAG, response.toString());
+		    	 
+		    	                    try {
+		    	                        // Parsing json array response
+		    	                        // loop through each json object
+		    	                     
+		    	                      
+		    	                    	JSONObject obj = new JSONObject(response.toString());
+		    	            			JSONArray tasks = obj.getJSONArray("tasks");
+		    	            			JSONObject task = (JSONObject) tasks.get(0);
+		    	                    	taskId=task.getInt("id");
+		    	                    	 Log.d("IdTaskaaaaa", Integer.toString(taskId));
+		    	                          
+		    	                            	                        
+		    	                        
+		    	                      
+		    	                    
+		
+		    	                    } catch (JSONException e) {
+		    	                        e.printStackTrace();     
+		    	                    }
+		    	              
+		    	                    pDialog.hide();
+		    	                  
+		    	                }
+		    	            }, new Response.ErrorListener() {
+		    	                @Override
+		    	                public void onErrorResponse(VolleyError error) {
+		    	                    Log.d(TAG, "Error: " + error.getMessage());
+		    	                    pDialog.hide();
+		    	                   
+		    	                    
+		    	                }
+		    	            });
+		    	 
+		        
+		    	    // Adding request to request queue
+		      
+		    	    AppController.getInstance().addToRequestQueue(req);
+		    	
+		    }
 	public void makeProjectsRequest(){
 		
 		SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
@@ -358,8 +420,7 @@ public class MainPage extends Activity {
 		switch (position) {
 		case 0:
 			makeProjectsRequest();
-			Integer id=projects.getProjects().get(0).getAktivnosti().get(0).getTaskovi().get(0).getTask_id();
-			fragment = new HomeFragment(id);
+			fragment = new HomeFragment(taskId);
 			break;
 		case 1:
 			fragment = new MyProfileFragment(user);

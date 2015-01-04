@@ -63,25 +63,28 @@ public class MyDocumentsFragment extends Fragment {
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)
          {
+        	
             TextView tv = new TextView(getActivity());
             String title = documents.get(i).getFilename();
             if(title.length()>14)title = title.substring(0, Math.min(title.length(), 14))+"...";
             tv.setText(title);
             tv.setTextColor(Color.parseColor("#22CB83")); 
-             tv.setTextSize(25);
+            tv.setTextSize(25);
             int curTextViewId = prijasnji + 1;
             tv.setId(curTextViewId);
             
             btn[i] = new Button(getActivity());
             btn[i].setCompoundDrawablesWithIntrinsicBounds(R.drawable.download, 0, 0, 0);
             int curButtonId = prijasnje_dugme + 1;
+            final Integer idButtona=documents.get(i).getId();
             btn[i].setId(curButtonId);
+            Log.d("ovo gledaj", Integer.toString(documents.get(i).getTask_id()));
             btn[i].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                 	SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
             	    String username=pref.getString("username",null);
             		String key=pref.getString("key",null);
-            		String pom ="https://projectmng.herokuapp.com/tasks/3/uploads/"+v.getId()+"?username=%1$s&key=%2$s";
+            		String pom ="https://projectmng.herokuapp.com/tasks/3/uploads/"+idButtona+"?username=%1$s&key=%2$s";
             		String url = String.format(pom,username,key);
             	
                 	Uri uri = Uri.parse(url);

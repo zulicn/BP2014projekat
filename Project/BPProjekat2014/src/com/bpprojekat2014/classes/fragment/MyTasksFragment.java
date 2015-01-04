@@ -48,8 +48,8 @@ public class MyTasksFragment extends Fragment{
 		   @Override
 	             public void onClick(View v)
 	             {
-			   		// TBD Izmijeniti da ga uputi na kreiranje taska!
-				    Fragment fragment = new CreateNewProjectFragment(projects, user);
+			   		// Kreiranje taska
+			   		Fragment fragment = new CreateNewTaskFragment(projects, user, indeksProjekta, indeksAktivnosti);
 				    FragmentManager fragmentManager = getFragmentManager();
 					fragmentManager.beginTransaction()
 							.replace(R.id.frame_container, fragment).commit();
@@ -58,15 +58,16 @@ public class MyTasksFragment extends Fragment{
         
         int number = projects.getProjects().get(indeksProjekta).getAktivnosti().get(indeksAktivnosti).countTasks();
         Button[] btn = new Button[number];
+        TextView[] tv = new TextView[number];
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)
          {
-            TextView tv = new TextView(getActivity());
-            tv.setText(projects.getProjects().get(indeksProjekta).getAktivnosti().get(indeksAktivnosti).getTaskovi().get(i).getName());
-            tv.setTextColor(Color.parseColor("#22CB83")); 
-             tv.setTextSize(25);
+            tv[i] = new TextView(getActivity());
+            tv[i].setText(projects.getProjects().get(indeksProjekta).getAktivnosti().get(indeksAktivnosti).getTaskovi().get(i).getName());
+            tv[i].setTextColor(Color.parseColor("#22CB83")); 
+            tv[i].setTextSize(25);
             int curTextViewId = prijasnji + 1;
-            tv.setId(curTextViewId);
+            tv[i].setId(curTextViewId);
             
             btn[i] = new Button(getActivity());
             btn[i].setText("");
@@ -76,6 +77,17 @@ public class MyTasksFragment extends Fragment{
             btn[i].setCompoundDrawablesWithIntrinsicBounds(R.drawable.penci, 0, 0, 0);
             int curButtonId = prijasnje_dugme + 1;
             btn[i].setId(curButtonId);
+            
+            tv[i].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {       
+                	// Promijeniti 
+                	Fragment fragment = new EditViewTaskFragment(projects, user, indeksProjekta, indeksAktivnosti, v.getId()-1);
+				    FragmentManager fragmentManager = getFragmentManager();
+					fragmentManager.beginTransaction()
+							.replace(R.id.frame_container, fragment).commit();                           		
+                }
+              });
+            
             /* Button za kreiranje necega dalje ne treba jer nema sta dalje kreirati!
             btn[i].setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {            	
@@ -96,7 +108,7 @@ public class MyTasksFragment extends Fragment{
 
             params.addRule(RelativeLayout.BELOW, prijasnji);
             params.setMargins(20, 20, 0, 0);
-            tv.setLayoutParams(params);
+            tv[i].setLayoutParams(params);
             params2.addRule(RelativeLayout.BELOW, prijasnje_dugme);
             params2.addRule(RelativeLayout.RIGHT_OF, curTextViewId);
             params2.setMargins(300, 20, 100, 0);
@@ -105,7 +117,7 @@ public class MyTasksFragment extends Fragment{
             prijasnji = curTextViewId;
             prijasnje_dugme = curButtonId;
             try{
-                relativeLayout.addView(tv, params);
+                relativeLayout.addView(tv[i], params);
                 relativeLayout.addView(btn[i], params2);
          }catch(Exception e){
                 e.printStackTrace();

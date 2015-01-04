@@ -55,21 +55,33 @@ public class MyProjectsFragment extends Fragment{
         
         int number=projects.countProjects();
         Button[] btn = new Button[number];
+        TextView[] tv = new TextView[number];
         int prijasnji=0, prijasnje_dugme=0;
         for (int i = 0; i < number; i++)
          {
-            TextView tv = new TextView(getActivity());
-            tv.setText(projects.getProjects().get(i).getName());
-            tv.setTextColor(Color.parseColor("#22CB83")); 
-             tv.setTextSize(25);
+            tv[i] = new TextView(getActivity());
+            tv[i].setText(projects.getProjects().get(i).getName());
+            tv[i].setTextColor(Color.parseColor("#22CB83")); 
+            tv[i].setTextSize(25);
             int curTextViewId = prijasnji + 1;
-            tv.setId(curTextViewId);
+            tv[i].setId(curTextViewId);
+            
+            tv[i].setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {            	
+                	Fragment fragment = new EditViewProjectFragment(projects, user, v.getId()-1);
+				    FragmentManager fragmentManager = getFragmentManager();
+					fragmentManager.beginTransaction()
+							.replace(R.id.frame_container, fragment).commit();                           		
+                }
+              });
+            
             btn[i] = new Button(getActivity());
             btn[i].setText("");
             btn[i].setTextColor(Color.parseColor("#0494D2"));
             btn[i].setTextSize(10);
             btn[i].setBackgroundResource(R.drawable.round_button_blue);
             btn[i].setCompoundDrawablesWithIntrinsicBounds(R.drawable.penci, 0, 0, 0);
+            
             int curButtonId = prijasnje_dugme + 1;
             btn[i].setId(curButtonId);
             
@@ -92,7 +104,7 @@ public class MyProjectsFragment extends Fragment{
 
             params.addRule(RelativeLayout.BELOW, prijasnji);
             params.setMargins(20, 20, 0, 0);
-            tv.setLayoutParams(params);
+            tv[i].setLayoutParams(params);
             params2.addRule(RelativeLayout.BELOW, prijasnje_dugme);
             params2.addRule(RelativeLayout.RIGHT_OF, curTextViewId);
             params2.setMargins(300, 20, 100, 0);
@@ -101,7 +113,7 @@ public class MyProjectsFragment extends Fragment{
             prijasnji = curTextViewId;
             prijasnje_dugme = curButtonId;
             try{
-                relativeLayout.addView(tv, params);
+                relativeLayout.addView(tv[i], params);
                 relativeLayout.addView(btn[i], params2);
          }catch(Exception e){
                 e.printStackTrace();
